@@ -200,7 +200,7 @@ function OrderConfirmationContent() {
     const total = Math.round((brutto + deliveryCost) * 100) / 100;
     
     summary = (
-      <div className="w-full max-w-2xl bg-white border border-[#E6F7C7] rounded-xl p-6 mt-32 mx-auto">
+      <div className="w-full max-w-2xl bg-white border border-[#E6F7C7] rounded-xl p-6 mx-auto">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-[#23611C] mb-2">
             Numer zamówienia: {generateOrderNumber(savedOrder.id)}
@@ -322,7 +322,7 @@ function OrderConfirmationContent() {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
+        <div className="text-center mt-32 mb-8">
           <h1 className="text-3xl font-bold text-[#23611C] mb-2">
             Potwierdzenie zamówienia
           </h1>
