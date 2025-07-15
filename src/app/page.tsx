@@ -99,7 +99,7 @@ export default function Home() {
         </section>
 
         {/* UKOŚNY PASEK Z NAPISEM */}
-        <section className="absolute w-screen left-1/2 right-1/2 -translate-x-1/2 bottom-[-100px] md:bottom-[180px] z-20 animated-banner" style={{ height: 80 }}>
+        <section className="absolute w-screen left-1/2 right-1/2 -translate-x-1/2 bottom-[-100px] md:bottom-[180px] z-20 animated-banner overflow-hidden" style={{ height: 80 }}>
           <div
             className="absolute w-[120vw] left-1/2 -translate-x-1/2 flex items-center"
             style={{

@@ -23,8 +23,8 @@ body {
   background: #fff !important;
   color: #131313;
   font-family: 'Wix Madefor Display', var(--font-sans), Arial, Helvetica, sans-serif;
-  /* Zapewnia, że elementy wychodzące poza body będą widoczne */
-  overflow-x: visible;
+  /* Zapobiega poziomemu przewijaniu */
+  overflow-x: hidden;
 }
 
 /* Zapewnia, że wszystkie sekcje pozwalają na widoczność elementów wychodzących poza nie */
