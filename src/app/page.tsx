@@ -240,25 +240,44 @@ export default function Home() {
       </section>
       
             {/* SEKCJA: Nowoczesna świadomość */}
-            <section ref={ecoSection.ref} className={`w-full flex flex-col md:flex-row items-center justify-between py-24 px-4 md:px-24 2xl:px-80 gap-12 md:gap-24 ${ecoSection.animClass}`}>
+            <section ref={ecoSection.ref} className={`w-full flex flex-col md:flex-row items-center justify-between py-16 md:py-20 px-4 md:px-24 2xl:px-80 gap-8 md:gap-16 ${ecoSection.animClass}`}>
         {/* Lewa kolumna: tekst */}
-        <div className="flex-1 max-w-xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#131313] mb-4">Nowoczesna świadomość</h2>
-          <h3 className="text-2xl md:text-2xl font-semibold text-[#131313] mb-6">Aluminium to wybór przyszłości.</h3>
-          <p className="text-base md:text-lg text-[#131313] mb-4">
-            Nasze opakowanie to lekka, zamykana hermetycznie puszka<br />
-            – w pełni nadająca się do recyklingu.
+        <div className="flex-1 max-w-lg">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#131313] mb-3 md:mb-4">Od plantacji po Twój łyk – historia czystej świeżości</h2>
+          <p className="text-sm md:text-base text-[#131313] mb-3 leading-relaxed">
+            Wszystko zaczyna się tam, gdzie słońce całuje liście palm – na certyfikowanych, zrównoważonych plantacjach, gdzie każdy kokos rośnie w harmonii z naturą. Bez pestycydów, bez rabunku środowiska – tylko czysta, odpowiedzialna uprawa.
           </p>
-          <p className="text-base md:text-lg text-[#131313] mb-4">
-            Chroni smak. Chroni świeżość. Chroni to, co ważne.
+          <p className="text-sm md:text-base text-[#131313] mb-3 leading-relaxed">
+            Następnie – delikatny proces przetwarzania, który pozwala zachować naturalny smak i wartości odżywcze. Zero zbędnych dodatków, zero kompromisów.
           </p>
-          <p className="text-base md:text-lg font-semibold text-[#23611C] mt-6">
-            Dobre rzeczy nie potrzebują plastiku.
+          <p className="text-sm md:text-base text-[#131313] mb-3 leading-relaxed">
+            Wreszcie – puszka. Lekka, praktyczna i w 100% nadająca się do recyklingu. Wykonana w 68–75% z aluminium wtórnego, które – w porównaniu z produkcją z surowca pierwotnego – pozwala zaoszczędzić aż 95% energii.
+          </p>
+          <p className="text-sm md:text-base font-semibold text-[#23611C] mt-4">
+            To nie tylko opakowanie – to świadomy wybór. Każda puszka to krok ku czystszej planecie.
           </p>
         </div>
         {/* Prawa kolumna: zdjęcie */}
         <div className="flex-1 flex items-center justify-end w-full max-w-2xl">
-          <img src="/underwater.jpg" alt="Zanieczyszczona woda" className="w-[700px] max-w-none h-[480px] object-cover" />
+          <img src="/underwater.jpg" alt="Zanieczyszczona woda" className="w-[500px] max-w-none h-[400px] object-cover rounded-lg" />
+        </div>
+      </section>
+
+      {/* SEKCJA: Każda puszka to krok ku czystszej planecie */}
+      <section className="w-full flex flex-col md:flex-row items-center justify-between py-16 md:py-20 px-4 md:px-24 2xl:px-80 gap-8 md:gap-16">
+        {/* Lewa kolumna: zdjęcie */}
+        <div className="flex-1 flex items-center justify-start w-full max-w-2xl">
+          <img src="/earth-hands.jpg" alt="Ręce trzymające globus z liśćmi" className="w-[500px] max-w-none h-[400px] object-cover rounded-lg" />
+        </div>
+        {/* Prawa kolumna: tekst */}
+        <div className="flex-1 max-w-lg">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#131313] mb-3 md:mb-4">Każda puszka to krok ku czystszej planecie.</h2>
+          <p className="text-sm md:text-base text-[#131313] mb-3 leading-relaxed">
+            Od A do Z – nasz produkt jest neutralny ekologicznie. Bo wierzymy, że orzeźwienie może być nie tylko smaczne, ale i odpowiedzialne. 🌿
+          </p>
+          <p className="text-sm md:text-base text-[#131313] mb-3 leading-relaxed">
+            Otwierając naszą puszkę, czujesz świeżość tropiku i spokój sumienia. Bo wiemy, że dobre wybory zaczynają się od prostych gestów. Jak jeden łyk kokosowej równowagi.
+          </p>
         </div>
       </section>
 

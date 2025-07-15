@@ -603,10 +603,15 @@ export default function AdminPage() {
                   </div>
 
                   {order.companyName && (
-                    <div className="mb-4">
-                      <p className="text-sm font-medium text-gray-600">Firma</p>
-                      <p className="text-sm">{order.companyName}</p>
-                      {order.nip && <p className="text-sm">NIP: {order.nip}</p>}
+                    <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <p className="text-sm font-medium text-blue-700 flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        Firma
+                      </p>
+                      <p className="text-sm font-medium text-gray-800">{order.companyName}</p>
+                      {order.nip && <p className="text-sm text-gray-600">NIP: {order.nip}</p>}
                     </div>
                   )}
 
