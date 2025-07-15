@@ -77,6 +77,8 @@ export default function AdminPage() {
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [additionalStatsLoaded, setAdditionalStatsLoaded] = useState(false);
   const router = useRouter();
 
   // Sprawdź autoryzację przy ładowaniu
@@ -104,6 +106,33 @@ export default function AdminPage() {
       loadStats();
     }
   }, [currentPage, currentStatus, isAuthenticated]);
+
+  // Ustaw flagę załadowania tylko raz po pierwszym załadowaniu danych
+  useEffect(() => {
+    if (isAuthenticated && stats && !isLoaded) {
+      // Ustaw flagę załadowania po krótkim opóźnieniu dla animacji
+      setTimeout(() => setIsLoaded(true), 100);
+    }
+  }, [isAuthenticated, stats, isLoaded]);
+
+  // Resetuj animacje gdy zmienia się status
+  useEffect(() => {
+    if (isAuthenticated) {
+      setIsLoaded(false);
+      setTimeout(() => setIsLoaded(true), 200);
+    }
+  }, [currentStatus]);
+
+  // Resetuj animacje dodatkowych kafelków gdy pokazują się/ukrywają
+  useEffect(() => {
+    if (showAllStats && isAuthenticated) {
+      setAdditionalStatsLoaded(false);
+      // Krótkie opóźnienie aby animacje działały poprawnie
+      setTimeout(() => setAdditionalStatsLoaded(true), 100);
+    } else {
+      setAdditionalStatsLoaded(false);
+    }
+  }, [showAllStats, isAuthenticated]);
 
   // Resetuj stronę gdy zmieniasz status
   useEffect(() => {
@@ -241,7 +270,9 @@ export default function AdminPage() {
         </div>
       ) : (
         <>
-          <div className="mb-8 flex justify-between items-center">
+          <div className={`mb-8 mt-12 flex justify-between items-center transition-all duration-700 ease-out ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}>
             <h1 className="text-3xl font-bold">Panel Administracyjny</h1>
             <button
               onClick={handleLogout}
@@ -266,14 +297,18 @@ export default function AdminPage() {
               {/* 4 główne kafelki - zawsze widoczne */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {/* Całkowita liczba zamówień */}
-                <div className="bg-white border rounded-xl p-6 shadow-sm">
+                <div className={`bg-white border rounded-xl p-6 shadow-sm transition-all duration-700 ease-out ${
+                  isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`} style={{ transitionDelay: '0.1s' }}>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">Wszystkie zamówienia</p>
                       <p className="text-2xl font-bold text-[#23611C]">{stats.totalOrders}</p>
                     </div>
-                    <div className="p-3 bg-blue-100 rounded-full">
-                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className={`p-3 bg-blue-100 rounded-full transition-all duration-700 ease-out ${
+                      isLoaded ? 'scale-100 rotate-0' : 'scale-0 rotate-180'
+                    }`} style={{ transitionDelay: '0.3s' }}>
+                      <svg className={`w-6 h-6 text-blue-600 ${isLoaded ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ animationDelay: '0.8s' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                     </div>
@@ -281,14 +316,18 @@ export default function AdminPage() {
                 </div>
 
                 {/* Nowe zamówienia */}
-                <div className="bg-white border rounded-xl p-6 shadow-sm">
+                <div className={`bg-white border rounded-xl p-6 shadow-sm transition-all duration-700 ease-out ${
+                  isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`} style={{ transitionDelay: '0.2s' }}>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">Nowe zamówienia</p>
                       <p className="text-2xl font-bold text-yellow-600">{stats.newOrders}</p>
                     </div>
-                    <div className="p-3 bg-yellow-100 rounded-full">
-                      <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className={`p-3 bg-yellow-100 rounded-full transition-all duration-700 ease-out ${
+                      isLoaded ? 'scale-100 rotate-0' : 'scale-0 rotate-180'
+                    }`} style={{ transitionDelay: '0.4s' }}>
+                      <svg className={`w-6 h-6 text-yellow-600 ${isLoaded ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ animationDelay: '0.9s' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
@@ -296,14 +335,18 @@ export default function AdminPage() {
                 </div>
 
                 {/* Zrealizowane zamówienia */}
-                <div className="bg-white border rounded-xl p-6 shadow-sm">
+                <div className={`bg-white border rounded-xl p-6 shadow-sm transition-all duration-700 ease-out ${
+                  isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`} style={{ transitionDelay: '0.3s' }}>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">Zrealizowane</p>
                       <p className="text-2xl font-bold text-green-600">{stats.completedOrders}</p>
                     </div>
-                    <div className="p-3 bg-green-100 rounded-full">
-                      <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className={`p-3 bg-green-100 rounded-full transition-all duration-700 ease-out ${
+                      isLoaded ? 'scale-100 rotate-0' : 'scale-0 rotate-180'
+                    }`} style={{ transitionDelay: '0.5s' }}>
+                      <svg className={`w-6 h-6 text-green-600 ${isLoaded ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ animationDelay: '1.0s' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
@@ -311,14 +354,18 @@ export default function AdminPage() {
                 </div>
 
                 {/* Całkowity przychód */}
-                <div className="bg-white border rounded-xl p-6 shadow-sm">
+                <div className={`bg-white border rounded-xl p-6 shadow-sm transition-all duration-700 ease-out ${
+                  isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`} style={{ transitionDelay: '0.4s' }}>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">Przychód</p>
                       <p className="text-2xl font-bold text-[#23611C]">{formatCurrency(stats.totalRevenue)}</p>
                     </div>
-                    <div className="p-3 bg-green-100 rounded-full">
-                      <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className={`p-3 bg-green-100 rounded-full transition-all duration-700 ease-out ${
+                      isLoaded ? 'scale-100 rotate-0' : 'scale-0 rotate-180'
+                    }`} style={{ transitionDelay: '0.6s' }}>
+                      <svg className={`w-6 h-6 text-green-600 ${isLoaded ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ animationDelay: '1.1s' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                       </svg>
                     </div>
@@ -327,7 +374,9 @@ export default function AdminPage() {
               </div>
 
               {/* Przycisk rozwijania dodatkowych statystyk */}
-              <div className="flex justify-center mb-12">
+              <div className={`flex justify-center mb-12 transition-all duration-700 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`} style={{ transitionDelay: '0.5s' }}>
                 <button
                   onClick={() => setShowAllStats(!showAllStats)}
                   className="text-[#23611C] hover:text-[#115E2B] bg-transparent border border-[#23611C] hover:border-[#115E2B] px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2 transition-all duration-200 hover:bg-[#F8FFF2]"
@@ -354,13 +403,17 @@ export default function AdminPage() {
               {showAllStats && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                   {/* Średnia wartość zamówienia */}
-                  <div className="bg-white border rounded-xl p-6 shadow-sm">
+                  <div className={`bg-white border rounded-xl p-6 shadow-sm transition-all duration-500 ease-out ${
+                    additionalStatsLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`} style={{ transitionDelay: '0.1s' }}>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-medium text-gray-600">Średnia wartość</p>
                         <p className="text-2xl font-bold text-[#23611C]">{formatCurrency(stats.averageOrderValue)}</p>
                       </div>
-                      <div className="p-3 bg-blue-100 rounded-full">
+                      <div className={`p-3 bg-blue-100 rounded-full transition-all duration-500 ease-out ${
+                        additionalStatsLoaded ? 'scale-100' : 'scale-0'
+                      }`} style={{ transitionDelay: '0.2s' }}>
                         <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
@@ -369,14 +422,18 @@ export default function AdminPage() {
                   </div>
 
                   {/* Zamówienia z dzisiaj */}
-                  <div className="bg-white border rounded-xl p-6 shadow-sm">
+                  <div className={`bg-white border rounded-xl p-6 shadow-sm transition-all duration-500 ease-out ${
+                    additionalStatsLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`} style={{ transitionDelay: '0.2s' }}>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-medium text-gray-600">Dzisiaj</p>
                         <p className="text-2xl font-bold text-orange-600">{stats.todayOrders}</p>
                         <p className="text-sm text-gray-500">{formatCurrency(stats.todayRevenue)}</p>
                       </div>
-                      <div className="p-3 bg-orange-100 rounded-full">
+                      <div className={`p-3 bg-orange-100 rounded-full transition-all duration-500 ease-out ${
+                        additionalStatsLoaded ? 'scale-100' : 'scale-0'
+                      }`} style={{ transitionDelay: '0.3s' }}>
                         <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -385,14 +442,18 @@ export default function AdminPage() {
                   </div>
 
                   {/* Zamówienia z tego miesiąca */}
-                  <div className="bg-white border rounded-xl p-6 shadow-sm">
+                  <div className={`bg-white border rounded-xl p-6 shadow-sm transition-all duration-500 ease-out ${
+                    additionalStatsLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`} style={{ transitionDelay: '0.3s' }}>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-medium text-gray-600">Ten miesiąc</p>
                         <p className="text-2xl font-bold text-purple-600">{stats.thisMonthOrders}</p>
                         <p className="text-sm text-gray-500">{formatCurrency(stats.thisMonthRevenue)}</p>
                       </div>
-                      <div className="p-3 bg-purple-100 rounded-full">
+                      <div className={`p-3 bg-purple-100 rounded-full transition-all duration-500 ease-out ${
+                        additionalStatsLoaded ? 'scale-100' : 'scale-0'
+                      }`} style={{ transitionDelay: '0.4s' }}>
                         <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -401,13 +462,17 @@ export default function AdminPage() {
                   </div>
 
                   {/* Top miasta */}
-                  <div className="bg-white border rounded-xl p-6 shadow-sm lg:col-span-2">
+                  <div className={`bg-white border rounded-xl p-6 shadow-sm lg:col-span-2 transition-all duration-500 ease-out ${
+                    additionalStatsLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`} style={{ transitionDelay: '0.4s' }}>
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <p className="text-sm font-medium text-gray-600">Top miasta</p>
                         <p className="text-lg font-bold text-[#23611C]">Najwięcej zamówień</p>
                       </div>
-                      <div className="p-3 bg-indigo-100 rounded-full">
+                      <div className={`p-3 bg-indigo-100 rounded-full transition-all duration-500 ease-out ${
+                        additionalStatsLoaded ? 'scale-100' : 'scale-0'
+                      }`} style={{ transitionDelay: '0.5s' }}>
                         <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -429,7 +494,9 @@ export default function AdminPage() {
           )}
 
           {/* Tabs dla statusów zamówień */}
-          <div className="mb-6">
+          <div className={`mb-6 transition-all duration-700 ease-out ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`} style={{ transitionDelay: '0.6s' }}>
           <h1 className="text-3xl font-bold mb-4">Zamówienia</h1>
             <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
               {["nowe", "w trakcie", "zrealizowane"].map((status) => (
@@ -450,7 +517,9 @@ export default function AdminPage() {
 
           {/* Wyszukiwanie dla historii */}
           {currentStatus === "zrealizowane" && (
-            <div className="mb-6">
+            <div className={`mb-6 transition-all duration-700 ease-out ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`} style={{ transitionDelay: '0.7s' }}>
               <input
                 type="text"
                 placeholder="Wyszukaj zamówienia..."
@@ -472,7 +541,9 @@ export default function AdminPage() {
               ))}
             </div>
           ) : filteredOrders.length === 0 ? (
-            <div className="text-center py-12">
+            <div className={`text-center py-12 transition-all duration-700 ease-out ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`} style={{ transitionDelay: '0.8s' }}>
               <div className="bg-white border rounded-lg p-8">
                 <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -490,9 +561,18 @@ export default function AdminPage() {
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
-              {filteredOrders.map((order) => (
-                <div key={order.id} className="bg-white border rounded-lg p-6">
+            <div className={`space-y-4 transition-all duration-700 ease-out ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`} style={{ transitionDelay: '0.8s' }}>
+              {filteredOrders.map((order, index) => (
+                <div 
+                  key={order.id} 
+                  className="bg-white border rounded-lg p-6 hover:shadow-md transition-all duration-300 ease-out"
+                  style={{ 
+                    animationDelay: `${0.9 + (index * 0.1)}s`,
+                    animation: isLoaded ? 'fadeInUp 0.6s ease-out forwards' : 'none'
+                  }}
+                >
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <h3 className="text-lg font-semibold">
@@ -540,7 +620,7 @@ export default function AdminPage() {
                           <button
                             onClick={() => updateOrderStatus(order.id, "w trakcie")}
                             disabled={updatingOrder === order.id}
-                            className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm disabled:opacity-50"
+                            className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm disabled:opacity-50 transition-colors"
                           >
                             {updatingOrder === order.id ? "Aktualizuję..." : "W trakcie"}
                           </button>
@@ -549,7 +629,7 @@ export default function AdminPage() {
                           <button
                             onClick={() => updateOrderStatus(order.id, "zrealizowane")}
                             disabled={updatingOrder === order.id}
-                            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm disabled:opacity-50"
+                            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm disabled:opacity-50 transition-colors"
                           >
                             {updatingOrder === order.id ? "Aktualizuję..." : "Zrealizuj"}
                           </button>
@@ -564,12 +644,14 @@ export default function AdminPage() {
 
           {/* Paginacja */}
           {pagination.totalPages > 1 && currentStatus !== "zrealizowane" && (
-            <div className="flex justify-center mt-8">
+            <div className={`flex justify-center mt-8 transition-all duration-700 ease-out ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`} style={{ transitionDelay: '1.0s' }}>
               <div className="flex space-x-2">
                 {currentPage > 1 && (
                   <button
                     onClick={() => setCurrentPage(currentPage - 1)}
-                    className="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50"
+                    className="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors"
                   >
                     Poprzednia
                   </button>
@@ -580,7 +662,7 @@ export default function AdminPage() {
                 {currentPage < pagination.totalPages && (
                   <button
                     onClick={() => setCurrentPage(currentPage + 1)}
-                    className="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50"
+                    className="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors"
                   >
                     Następna
                   </button>
@@ -590,12 +672,59 @@ export default function AdminPage() {
           )}
 
           {error && (
-            <div className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg">
+            <div className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg animate-fadeIn">
               {error}
             </div>
           )}
         </>
       )}
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes iconPop {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        .animate-iconPop {
+          animation: iconPop 0.5s ease-in-out;
+        }
+      `}</style>
     </div>
   );
 } 
