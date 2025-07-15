@@ -110,10 +110,10 @@ function OrderConfirmationContent() {
       const PRICES = { 24: 105.36, 12: 55.08 };
       const DELIVERY_COST = 13.99;
       const variant = item.variant as 24 | 12;
-      const netto = PRICES[variant] * item.quantity;
+      const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
       const brutto = netto;
       const deliveryCost = brutto >= 200 ? 0 : DELIVERY_COST;
-      const total = brutto + deliveryCost;
+      const total = Math.round((brutto + deliveryCost) * 100) / 100;
 
       const orderData = {
         sessionId: sessionId || null,
@@ -194,10 +194,10 @@ function OrderConfirmationContent() {
     const PRICES = { 24: 105.36, 12: 55.08 };
     const DELIVERY_COST = 13.99;
     const variant = savedOrder.variant as 24 | 12;
-    const netto = PRICES[variant] * savedOrder.quantity;
+    const netto = Math.round(PRICES[variant] * savedOrder.quantity * 100) / 100;
     const brutto = netto;
     const deliveryCost = brutto >= 200 ? 0 : DELIVERY_COST;
-    const total = brutto + deliveryCost;
+    const total = Math.round((brutto + deliveryCost) * 100) / 100;
     
     summary = (
       <div className="w-full max-w-2xl bg-white border border-[#E6F7C7] rounded-xl p-6 mt-8 mx-auto">

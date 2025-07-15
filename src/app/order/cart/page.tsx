@@ -47,11 +47,11 @@ export default function CartPage() {
 
   // Wyliczanie ceny na podstawie wariantu
   const variant = item.variant as 24 | 12;
-  const netto = PRICES[variant] * item.quantity;
+  const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
   const brutto = netto; // brutto = netto, bo ceny są brutto
   const deliveryObj = DELIVERY_OPTIONS.find(d => d.value === delivery)!;
   const deliveryCost = brutto >= 200 ? 0 : deliveryObj.price;
-  const total = brutto + deliveryCost;
+  const total = Math.round((brutto + deliveryCost) * 100) / 100;
 
   return (
     <div className="max-w-6xl mx-auto w-full pt-32 py-16 px-4">
@@ -161,20 +161,20 @@ export default function CartPage() {
           <div className="font-semibold text-lg mb-4">Podsumowanie</div>
           <div className="flex justify-between mb-2 text-[#171717]">
             <span>Wartość netto</span>
-            <span className="font-semibold">{netto} zł</span>
+            <span className="font-semibold">{netto.toFixed(2)} zł</span>
           </div>
           <div className="flex justify-between mb-2 text-[#171717]">
             <span>Wartość brutto</span>
-            <span className="font-semibold">{brutto} zł</span>
+            <span className="font-semibold">{brutto.toFixed(2)} zł</span>
           </div>
           <div className="flex justify-between mb-2 text-[#171717]">
             <span>Koszt dostawy</span>
-            <span className="font-semibold">{deliveryCost} zł</span>
+            <span className="font-semibold">{deliveryCost.toFixed(2)} zł</span>
           </div>
           <hr className="my-2 border-[#E6F7C7]" />
           <div className="flex justify-between text-lg font-bold">
             <span>Razem</span>
-            <span>{total} zł</span>
+            <span>{total.toFixed(2)} zł</span>
           </div>
           <button 
             className={`w-full bg-[#23611C] text-white rounded mt-6 py-3 font-semibold text-base ${!item || !delivery || !payment ? 'opacity-50 cursor-not-allowed' : ''}`}

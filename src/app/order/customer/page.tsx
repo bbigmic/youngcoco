@@ -74,10 +74,10 @@ export default function CustomerFormPage() {
     const PRICES = { 24: 105.36, 12: 55.08 };
     const DELIVERY_COST = 13.99; // domyślnie jak w koszyku
     const variant = item.variant as 24 | 12;
-    const netto = PRICES[variant] * item.quantity;
+    const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
     const brutto = netto;
     const deliveryCost = brutto >= 200 ? 0 : DELIVERY_COST;
-    const total = brutto + deliveryCost;
+    const total = Math.round((brutto + deliveryCost) * 100) / 100;
     summary = (
       <>
         <div className="flex justify-between mb-2 text-[#171717]">
