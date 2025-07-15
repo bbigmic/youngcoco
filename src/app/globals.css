@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-wix-madefor);
+  --font-mono: monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: #fff !important;
+  color: #131313;
+  font-family: 'Wix Madefor Display', var(--font-sans), Arial, Helvetica, sans-serif;
+  /* Zapewnia, że elementy wychodzące poza body będą widoczne */
+  overflow-x: visible;
+}
+
+/* Zapewnia, że wszystkie sekcje pozwalają na widoczność elementów wychodzących poza nie */
+section, div, main {
+  overflow: visible !important;
+}
+
+/* Specjalne style dla elementów, które muszą być zawsze widoczne */
+.coconut-piece {
+  overflow: visible !important;
+  z-index: 100;
+}
+
+.animated-banner {
+  overflow: visible !important;
+  z-index: 50;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 24s linear infinite;
+}
+
+@keyframes drawArrow {
+  from {
+    stroke-dashoffset: 220;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-draw-arrow .arrow-main {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: drawArrow 1.2s ease-out forwards;
+}
+
+.animate-draw-arrow .arrow-tip {
+  opacity: 0;
+}
+
+.animate-draw-arrow .arrow-main[style*='stroke-dashoffset: 0'] ~ .arrow-tip {
+  opacity: 1;
+  transition: opacity 0.5s 0.9s;
+}
+
+.no-anim .arrow-main {
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+  animation: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in { opacity: 0; animation: fadeIn 2s ease-out forwards; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up { opacity: 0; animation: slideUp 2s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down { opacity: 0; animation: slideDown 2s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-left { opacity: 0; animation: slideLeft 2s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-right { opacity: 0; animation: slideRight 2s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-zoom-in { opacity: 0; animation: zoomIn 2s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@keyframes canFlyDown {
+  from { opacity: 0; transform: translateY(-80px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.can-fly-down { opacity: 0; animation: canFlyDown 2.2s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@keyframes canFlyLeft {
+  from { opacity: 0; transform: translateX(-80px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.can-fly-left { opacity: 0; animation: canFlyLeft 2.2s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+.section-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Animacje dla palm */
+@keyframes palmSwayLeft {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-3deg); }
+}
+
+@keyframes palmSwayRight {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes palmSwaySlow {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-4deg); }
+}
+
+@keyframes palmSwayFast {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(4deg); }
+}
+
+.palm-sway-left {
+  animation: palmSwayLeft 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.palm-sway-right {
+  animation: palmSwayRight 3.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.palm-sway-slow {
+  animation: palmSwaySlow 6s ease-in-out infinite;
+  transform-origin: bottom left;
+}
+
+.palm-sway-fast {
+  animation: palmSwayFast 2.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}

@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  id             Int      @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  email          String
+  phone          String?
+  address        String
+  city           String
+  zipCode        String
+  companyName    String?
+  nip            String?
+  invoiceAddress String?
+  variant        Int
+  quantity       Int
+  price          Float
+  total          Float
+  delivery       String
+  payment        String
+  status         String   @default("nowe")
+  consent1       Boolean  @default(false)
+  consent2       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  sessionId      String?
+}
