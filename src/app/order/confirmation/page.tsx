@@ -8,7 +8,29 @@ export default function OrderConfirmationPage() {
   const searchParams = useSearchParams();
   const { item, customer, clearCart } = useCart();
   const [orderSaved, setOrderSaved] = useState(false);
-  const [savedOrder, setSavedOrder] = useState<any>(null);
+  const [savedOrder, setSavedOrder] = useState<{
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone?: string;
+    address: string;
+    city: string;
+    zipCode: string;
+    companyName?: string;
+    nip?: string;
+    variant: number;
+    quantity: number;
+    price: number;
+    total: number;
+    delivery: string;
+    payment: string;
+    status: string;
+    consent1: boolean;
+    consent2: boolean;
+    createdAt: string;
+    sessionId?: string;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const hasAttemptedSave = useRef(false);
@@ -40,9 +62,9 @@ export default function OrderConfirmationPage() {
           saveOrderToDatabase();
         }
       }
-    } catch (e: any) {
-      console.error('Error checking existing order:', e);
-      setError(e.message || "Błąd sprawdzania zamówienia");
+    } catch (error: unknown) {
+      console.error('Error checking existing order:', error);
+      setError(error instanceof Error ? error.message : "Błąd sprawdzania zamówienia");
     } finally {
       setLoading(false);
     }
@@ -50,7 +72,6 @@ export default function OrderConfirmationPage() {
 
   // Sprawdź czy płatność była udana (parametry z Stripe)
   const sessionId = searchParams.get('session_id');
-  const paymentStatus = searchParams.get('payment_status');
 
   useEffect(() => {
     console.log('Confirmation page - sessionId:', sessionId);
@@ -145,9 +166,9 @@ export default function OrderConfirmationPage() {
       if (!sessionId) {
         clearCart();
       }
-    } catch (e: any) {
-      console.error('Error saving order:', e);
-      setError(e.message || "Błąd zapisu zamówienia");
+    } catch (error: unknown) {
+      console.error('Error saving order:', error);
+      setError(error instanceof Error ? error.message : "Błąd zapisu zamówienia");
     } finally {
       setLoading(false);
     }

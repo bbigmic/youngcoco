@@ -49,7 +49,7 @@ export default function CustomerFormPage() {
     return e;
   }
 
-  function handleChange(e: any) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value, type, checked } = e.target;
     setForm(f => ({
       ...f,
@@ -57,7 +57,7 @@ export default function CustomerFormPage() {
     }));
   }
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const e2 = validate();
     setErrors(e2);
@@ -72,7 +72,6 @@ export default function CustomerFormPage() {
   let summary = null;
   if (item) {
     const PRICES = { 24: 105.36, 12: 55.08 };
-    const UNIT_PRICES = { 24: 4.39, 12: 4.59 };
     const DELIVERY_COST = 13.99; // domyślnie jak w koszyku
     const variant = item.variant as 24 | 12;
     const netto = PRICES[variant] * item.quantity;

@@ -19,10 +19,7 @@ const UNIT_PRICES = {
   24: 4.39,
   12: 4.59,
 };
-const OLD_PRICES = {
-  24: 131.76,
-  12: 65.88,
-};
+
 
 const DELIVERY_OPTIONS = [
   { label: "Kurier InPost", value: "Kurier InPost", desc: "Wysyłka 24h", price: 13.99 },

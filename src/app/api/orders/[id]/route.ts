@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     const { status } = await req.json();
-    const orderId = parseInt(params.id);
+    const orderId = parseInt(context.params.id);
 
     const order = await prisma.order.update({
       where: { id: orderId },

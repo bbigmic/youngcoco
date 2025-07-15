@@ -1,7 +1,39 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const ADMIN_PASSWORD = "coco123"; // Możesz zmienić na własne
+const ADMIN_PASSWORD = "youngcoco2024";
+
+type Order = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  address: string;
+  city: string;
+  zipCode: string;
+  companyName?: string;
+  nip?: string;
+  invoiceAddress?: string;
+  variant: number;
+  quantity: number;
+  price: number;
+  total: number;
+  delivery: string;
+  payment: string;
+  status: string;
+  consent1: boolean;
+  consent2: boolean;
+  createdAt: string;
+  sessionId?: string;
+};
+
+type Pagination = {
+  total: number;
+  totalPages: number;
+  currentPage: number;
+  limit: number;
+};
 
 type Stats = {
   totalOrders: number;
@@ -28,10 +60,15 @@ type Stats = {
 export default function AdminPage() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [password, setPassword] = useState("");
-  const [orders, setOrders] = useState<any[]>([]);
-  const [allOrders, setAllOrders] = useState<any[]>([]); // Wszystkie zamówienia do wyszukiwania
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [allOrders, setAllOrders] = useState<Order[]>([]); // Wszystkie zamówienia do wyszukiwania
   const [stats, setStats] = useState<Stats | null>(null);
-  const [pagination, setPagination] = useState<any>({});
+  const [pagination, setPagination] = useState<Pagination>({
+    total: 0,
+    totalPages: 0,
+    currentPage: 1,
+    limit: 10
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [currentStatus, setCurrentStatus] = useState<string>("nowe");
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +77,7 @@ export default function AdminPage() {
   const [updatingOrder, setUpdatingOrder] = useState<number | null>(null);
   const [showAllStats, setShowAllStats] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredOrders, setFilteredOrders] = useState<any[]>([]);
+  const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && sessionStorage.getItem("admin") === "1") {
@@ -102,8 +139,8 @@ export default function AdminPage() {
       const res = await fetch("/api/stats");
       const data = await res.json();
       setStats(data);
-    } catch (e) {
-      console.error("Błąd pobierania statystyk:", e);
+    } catch {
+      console.error("Błąd pobierania statystyk");
     } finally {
       setStatsLoading(false);
     }
@@ -128,7 +165,7 @@ export default function AdminPage() {
         setAllOrders([]);
         setFilteredOrders(data.orders);
       }
-    } catch (e) {
+    } catch {
       setError("Błąd pobierania zamówień");
     } finally {
       setLoading(false);
@@ -151,14 +188,14 @@ export default function AdminPage() {
       } else {
         setError("Błąd aktualizacji zamówienia");
       }
-    } catch (e) {
+    } catch {
       setError("Błąd aktualizacji zamówienia");
     } finally {
       setUpdatingOrder(null);
     }
   }
 
-  function handleLogin(e: any) {
+  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {
       setLoggedIn(true);
@@ -461,7 +498,7 @@ export default function AdminPage() {
             </div>
             {searchTerm && (
               <div className="mt-2 text-sm text-gray-600">
-                Znaleziono {filteredOrders.length} wyników dla "{searchTerm}"
+                Znaleziono {filteredOrders.length} wyników dla &quot;{searchTerm}&quot;
               </div>
             )}
           </div>
@@ -472,7 +509,7 @@ export default function AdminPage() {
         ) : (
           <>
             <div className="grid gap-6">
-              {(currentStatus === "zrealizowane" ? filteredOrders : orders).map((order: any) => (
+              {(currentStatus === "zrealizowane" ? filteredOrders : orders).map((order: Order) => (
                 <div key={order.id} className="bg-white border rounded-xl p-6 shadow-sm">
                   <div className="flex justify-between items-start mb-4">
                     <div>
@@ -529,7 +566,7 @@ export default function AdminPage() {
                           <div className="mt-1 text-xs text-gray-500 flex items-center gap-1">
                             <span>Stripe ID: {order.sessionId}</span>
                             <button 
-                              onClick={() => navigator.clipboard.writeText(order.sessionId)}
+                              onClick={() => navigator.clipboard.writeText(order.sessionId!)}
                               className="text-blue-600 hover:text-blue-800"
                               title="Kopiuj ID sesji"
                             >

@@ -26,13 +26,10 @@ function useSectionInView(animationClass = "animate-fade-in") {
 }
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [parallax, setParallax] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 10);
       // Parallax: ogranicz do max 300px scrolla
       setParallax(Math.min(window.scrollY, 300));
     };
@@ -46,7 +43,6 @@ export default function Home() {
   const ecoSection = useSectionInView("animate-zoom-in");
   const instaSection = useSectionInView("animate-slide-right");
   const contactSection = useSectionInView("animate-fade-in");
-  const footerSection = useSectionInView("animate-fade-in");
   // Dla puszki w hero
   const canHero = useSectionInView("can-fly-down");
   // Dla puszki w sekcji wariantu produktu

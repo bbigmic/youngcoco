@@ -8,10 +8,7 @@ const PRICES = {
   24: 105.36,
   12: 55.08,
 };
-const UNIT_PRICES = {
-  24: 4.39,
-  12: 4.59,
-};
+
 const DELIVERY_OPTIONS = [
   { label: "Kurier InPost", value: "Kurier InPost", desc: "Wysyłka 24h", price: 13.99 },
 ];
@@ -95,8 +92,8 @@ export default function OrderSummaryPage() {
       
       // Przekieruj do Stripe
       window.location.href = url;
-    } catch (e: any) {
-      setError(e.message || "Błąd płatności");
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Błąd płatności");
     } finally {
       setLoading(false);
     }
