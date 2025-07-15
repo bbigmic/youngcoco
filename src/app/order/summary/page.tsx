@@ -37,7 +37,7 @@ export default function OrderSummaryPage() {
   const variant = item.variant as 24 | 12;
   const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
   const brutto = netto;
-  const deliveryCost = brutto >= 200 ? 0 : delivery.price;
+  const deliveryCost = brutto >= 150 ? 0 : delivery.price;
   const total = Math.round((brutto + deliveryCost) * 100) / 100;
 
   async function handleOrder() {

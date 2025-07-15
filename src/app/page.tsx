@@ -217,7 +217,7 @@ export default function Home() {
               <p className="text-[#23611C] text-base">naturalna słodycz kokosa, bez sztucznych dodatków.</p>
             </div>
             <div>
-              <h3 className="text-[#23611C] text-xl font-bold mb-2">Prawdziwy miąższ kokosowy</h3>
+              <h3 className="text-[#23611C] text-xl font-bold mb-2">Prawdziwy orzech kokosowy</h3>
               <p className="text-[#23611C] text-base">delikatny, miękki kawałek orzecha w każdej puszce.</p>
             </div>
             <div>

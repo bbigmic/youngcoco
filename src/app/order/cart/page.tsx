@@ -50,7 +50,7 @@ export default function CartPage() {
   const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
   const brutto = netto; // brutto = netto, bo ceny są brutto
   const deliveryObj = DELIVERY_OPTIONS.find(d => d.value === delivery)!;
-  const deliveryCost = brutto >= 200 ? 0 : deliveryObj.price;
+  const deliveryCost = brutto >= 150 ? 0 : deliveryObj.price;
   const total = Math.round((brutto + deliveryCost) * 100) / 100;
 
   return (
@@ -138,7 +138,7 @@ export default function CartPage() {
                 <label key={opt.value} className={`flex items-center border rounded-lg px-4 py-3 cursor-pointer transition-all ${delivery === opt.value ? 'border-[#23611C] bg-[#F8FFF2]' : 'border-[#E0E0E0] bg-white'}`}>
                   <input type="radio" name="delivery" value={opt.value} checked={delivery === opt.value} onChange={() => setDelivery(opt.value)} className="mr-3 accent-[#23611C]" />
                   <span className="flex-1">{opt.label} <span className="text-[#7A7A7A] ml-2">{opt.desc}</span></span>
-                  <span className="font-semibold">Opłata za wysyłkę: {brutto >= 200 ? '0.00' : opt.price.toFixed(2)} zł</span>
+                  <span className="font-semibold">Opłata za wysyłkę: {brutto >= 150 ? '0.00' : opt.price.toFixed(2)} zł</span>
                 </label>
               ))}
             </div>

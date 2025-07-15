@@ -112,7 +112,7 @@ function OrderConfirmationContent() {
       const variant = item.variant as 24 | 12;
       const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
       const brutto = netto;
-      const deliveryCost = brutto >= 200 ? 0 : DELIVERY_COST;
+      const deliveryCost = brutto >= 150 ? 0 : DELIVERY_COST;
       const total = Math.round((brutto + deliveryCost) * 100) / 100;
 
       const orderData = {
@@ -196,7 +196,7 @@ function OrderConfirmationContent() {
     const variant = savedOrder.variant as 24 | 12;
     const netto = Math.round(PRICES[variant] * savedOrder.quantity * 100) / 100;
     const brutto = netto;
-    const deliveryCost = brutto >= 200 ? 0 : DELIVERY_COST;
+    const deliveryCost = brutto >= 150 ? 0 : DELIVERY_COST;
     const total = Math.round((brutto + deliveryCost) * 100) / 100;
     
     summary = (

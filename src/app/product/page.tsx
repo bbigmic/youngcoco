@@ -45,9 +45,9 @@ export default function ProductPage() {
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col items-center justify-start pt-36 pb-20">
-      <div className="flex flex-col md:flex-row w-full max-w-6xl gap-4 md:gap-24 px-4 md:px-0 items-start md:items-center">
+      <div className="flex flex-col md:flex-row w-full max-w-6xl gap-4 md:gap-24 px-4 md:px-0 items-start md:items-start">
         {/* Zdjęcia */}
-        <div className="flex flex-col items-center flex-1">
+        <div className="flex flex-col items-center flex-1 md:sticky md:top-36">
           <div className="mb-10">
             <Image src={product.images[selectedImg]} alt={product.name} width={320} height={440} className="mx-auto" />
           </div>
@@ -97,14 +97,59 @@ export default function ProductPage() {
             </div>
           </div>
           {/* Skład i Alergeny */}
-          <div className="border rounded-lg overflow-hidden mb-4">
+          <div className="rounded-lg overflow-hidden mb-4">
             <button onClick={() => setShowDetails(v => !v)} className="w-full flex justify-between items-center px-6 py-4 bg-[#F7F7F7] text-[#171717] font-semibold text-base focus:outline-none">
               Skład i Alergeny
               <span className={`ml-2 transition-transform text-2xl ${showDetails ? 'rotate-180' : ''}`}>▼</span>
             </button>
             {showDetails && (
               <div className="px-6 py-4 bg-white text-[#23611C] text-base border-t">
-                100% woda kokosowa z kawałkami orzecha kokosowego. Bez dodatku cukru, bez konserwantów. Produkt naturalny.
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">Skład:</h4>
+                    <p>100% woda kokosowa z młodych, zielonych kokosów z kawałkami orzecha kokosowego.</p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Wartość odżywcza (na 100ml):</h4>
+                    <ul className="space-y-1 text-sm">
+                      <li>• Energia: 19 kcal / 79 kJ</li>
+                      <li>• Białko: 0.7g</li>
+                      <li>• Węglowodany: 3.7g</li>
+                      <li>• Tłuszcz: 0.2g</li>
+                      <li>• Błonnik: 1.1g</li>
+                      <li>• Sód: 105mg</li>
+                      <li>• Potas: 250mg</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Przechowywanie:</h4>
+                    <p>Przechowywać w chłodnym i suchym miejscu. Unikać bezpośredniego nasłonecznienia, wilgoci i wysokich temperatur.</p>
+                    <p className="text-sm mt-1">Temperatura przechowywania: 4-25°C</p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Data przydatności do spożycia:</h4>
+                    <p>12 miesięcy od daty produkcji</p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Alergeny:</h4>
+                    <p>Produkt może zawierać śladowe ilości orzechów.</p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Charakterystyka:</h4>
+                    <ul className="space-y-1 text-sm">
+                      <li>• Bez dodatku cukru</li>
+                      <li>• Bez konserwantów</li>
+                      <li>• Produkt naturalny</li>
+                      <li>• Nie zawiera GMO</li>
+                      <li>• Opakowanie w pełni nadające się do recyklingu</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -112,12 +157,9 @@ export default function ProductPage() {
           <div className="flex flex-col md:flex-row gap-8 text-[#23611C] text-sm items-center justify-between w-full mt-2">
             <div className="flex items-center gap-2">
               <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#23611C" strokeWidth="2"/><path d="M7 17h10M7 13h10M7 9h10" stroke="#23611C" strokeWidth="2"/></svg>
-              Darmowa dostawa przy zakupie powyżej 200 zł brutto
+              Darmowa dostawa przy zakupie powyżej 150 zł brutto
             </div>
-            <div className="flex items-center gap-2">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#23611C" strokeWidth="2"/><path d="M7 17h10M7 13h10M7 9h10" stroke="#23611C" strokeWidth="2"/></svg>
-              Darmowa dostawa przy zakupie powyżej 200 zł brutto
-            </div>
+
           </div>
         </div>
       </div>
