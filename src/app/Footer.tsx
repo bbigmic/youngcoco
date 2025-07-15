@@ -21,7 +21,7 @@ export default function Footer() {
           </div>
           <div className="flex gap-6 mt-2 text-[#A1C63A]">
             {/* Instagram */}
-            <a href="#" aria-label="Instagram" className="hover:opacity-80 transition"><img src="/social-icons/instagram.svg" alt="Instagram" width={28} height={28} /></a>
+            <a href="https://www.instagram.com/youngcocowater/" aria-label="Instagram" className="hover:opacity-80 transition"><img src="/social-icons/instagram.svg" alt="Instagram" width={28} height={28} /></a>
             {/* Facebook */}
             <a href="#" aria-label="Facebook" className="hover:opacity-80 transition"><img src="/social-icons/facebook.svg" alt="Facebook" width={28} height={28} /></a>
             {/* YouTube */}
