@@ -24,7 +24,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto pt-40 flex flex-col items-center">
+    <div className="max-w-md mx-auto pt-40 pb-40 flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-6">Logowanie do panelu admina</h1>
       <form onSubmit={handleLogin} className="w-full flex flex-col gap-4">
         <input
