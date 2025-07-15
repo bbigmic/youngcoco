@@ -1,9 +1,9 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCart } from "../../CartContext";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 
-export default function OrderConfirmationPage() {
+function OrderConfirmationContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { item, customer, clearCart } = useCart();
@@ -219,22 +219,21 @@ export default function OrderConfirmationPage() {
               </div>
               <div className="flex justify-between">
                 <span>Ilość:</span>
-                <span>{savedOrder.quantity}</span>
+                <span>{savedOrder.quantity} szt.</span>
               </div>
               <div className="flex justify-between">
                 <span>Cena jednostkowa:</span>
-                <span>{PRICES[variant].toFixed(2)} zł</span>
+                <span>{savedOrder.price.toFixed(2)} zł</span>
               </div>
               <div className="flex justify-between">
-                <span>Wartość netto:</span>
-                <span>{netto.toFixed(2)} zł</span>
+                <span>Dostawa:</span>
+                <span>{savedOrder.delivery}</span>
               </div>
               <div className="flex justify-between">
-                <span>Koszt dostawy:</span>
-                <span>{deliveryCost.toFixed(2)} zł</span>
+                <span>Płatność:</span>
+                <span>{savedOrder.payment}</span>
               </div>
-              <hr className="my-2 border-[#E6F7C7]" />
-              <div className="flex justify-between font-bold text-lg">
+              <div className="flex justify-between font-semibold">
                 <span>Razem:</span>
                 <span>{total.toFixed(2)} zł</span>
               </div>
@@ -247,91 +246,108 @@ export default function OrderConfirmationPage() {
             <div className="space-y-2 text-sm">
               <div>
                 <span className="font-medium">Imię i nazwisko:</span><br />
-                <span>{customerData.firstName} {customerData.lastName}</span>
-              </div>
-              <div>
-                <span className="font-medium">Adres dostawy:</span><br />
-                <span>{customerData.street} {customerData.house}<br />
-                {customerData.zip} {customerData.city}</span>
+                {customerData.firstName} {customerData.lastName}
               </div>
               <div>
                 <span className="font-medium">Email:</span><br />
-                <span>{customerData.email}</span>
+                {customerData.email}
               </div>
               <div>
                 <span className="font-medium">Telefon:</span><br />
-                <span>{customerData.tel}</span>
+                {customerData.tel}
+              </div>
+              <div>
+                <span className="font-medium">Adres:</span><br />
+                {customerData.street} {customerData.house}<br />
+                {customerData.zip} {customerData.city}
               </div>
               {customerData.company && (
                 <div>
                   <span className="font-medium">Firma:</span><br />
-                  <span>{customerData.company}<br />
-                  NIP: {customerData.nip}</span>
+                  {customerData.company}<br />
+                  NIP: {customerData.nip}
                 </div>
               )}
             </div>
           </div>
         </div>
         
-        <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <h4 className="font-semibold text-green-800 mb-2">Informacje o dostawie</h4>
-          <p className="text-sm text-green-700">
-            Sposób dostawy: {savedOrder.delivery}<br />
-            Forma płatności: {savedOrder.payment}<br />
-            Status: {savedOrder.status}
+        <div className="mt-8 text-center">
+          <p className="text-green-600 font-semibold mb-4">
+            ✅ Twoje zamówienie zostało złożone pomyślnie!
           </p>
+          <p className="text-gray-600 text-sm mb-6">
+            Potwierdzenie zostało wysłane na adres email: {customerData.email}
+          </p>
+          <button 
+            onClick={() => router.push('/')}
+            className="bg-[#23611C] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#115E2B] transition-colors"
+          >
+            Wróć do strony głównej
+          </button>
         </div>
-      
       </div>
     );
   }
 
   if (loading) {
     return (
-      <div className="max-w-2xl mx-auto w-full pt-32 py-16 px-4 flex flex-col items-center justify-center text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#23611C] mb-4"></div>
-        <p className="text-lg">Zapisujemy Twoje zamówienie...</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#23611C] mx-auto mb-4"></div>
+          <p className="text-gray-600">Przetwarzanie zamówienia...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="max-w-2xl mx-auto w-full pt-32 py-16 px-4 flex flex-col items-center justify-center text-center">
-        <h1 className="text-2xl font-bold mb-6 text-red-600">Błąd zapisu zamówienia</h1>
-        <p className="text-lg mb-8 text-red-600">{error}</p>
-        <button className="bg-[#23611C] text-white rounded px-8 py-3 font-semibold text-base" onClick={() => router.push("/order/summary")}>
-          Spróbuj ponownie
-        </button>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <h2 className="text-xl font-bold text-gray-800 mb-2">Wystąpił błąd</h2>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <button 
+            onClick={() => router.push('/order/cart')}
+            className="bg-[#23611C] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#115E2B] transition-colors"
+          >
+            Wróć do koszyka
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto w-full pt-32 py-16 px-4">
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
+    <div className="min-h-screen bg-gray-50 py-16 px-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-[#23611C] mb-2">
+            Potwierdzenie zamówienia
+          </h1>
+          <p className="text-gray-600">
+            Dziękujemy za Twoje zamówienie!
+          </p>
         </div>
-        <h1 className="text-3xl font-bold mb-4 text-[#23611C]">Dziękujemy za złożenie zamówienia!</h1>
-        <p className="text-lg text-gray-600">
-          Twoje zamówienie zostało przyjęte do realizacji.<br />
-          Wkrótce otrzymasz potwierdzenie na podany adres e-mail.
-        </p>
-      </div>
-      
-      {summary}
-      
-      <div className="text-center mt-8">
-        <button 
-          className="bg-[#23611C] text-white rounded px-8 py-3 font-semibold text-base hover:bg-[#1a4a15] transition-colors" 
-          onClick={() => router.push("/")}
-        >
-          Wróć na stronę główną
-        </button>
+        
+        {summary}
       </div>
     </div>
+  );
+}
+
+export default function OrderConfirmationPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#23611C] mx-auto mb-4"></div>
+          <p className="text-gray-600">Ładowanie...</p>
+        </div>
+      </div>
+    }>
+      <OrderConfirmationContent />
+    </Suspense>
   );
 } 
