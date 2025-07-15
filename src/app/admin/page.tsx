@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-
-const ADMIN_PASSWORD = "youngcoco2024";
+import { useRouter } from "next/navigation";
 
 type Order = {
   id: number;
@@ -58,8 +57,6 @@ type Stats = {
 };
 
 export default function AdminPage() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [password, setPassword] = useState("");
   const [orders, setOrders] = useState<Order[]>([]);
   const [allOrders, setAllOrders] = useState<Order[]>([]); // Wszystkie zamówienia do wyszukiwania
   const [stats, setStats] = useState<Stats | null>(null);
@@ -78,19 +75,12 @@ export default function AdminPage() {
   const [showAllStats, setShowAllStats] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== "undefined" && sessionStorage.getItem("admin") === "1") {
-      setLoggedIn(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (loggedIn) {
-      loadOrders();
-      loadStats();
-    }
-  }, [loggedIn, currentPage, currentStatus]);
+    loadOrders();
+    loadStats();
+  }, [currentPage, currentStatus]);
 
   // Resetuj stronę gdy zmieniasz status
   useEffect(() => {
@@ -195,13 +185,12 @@ export default function AdminPage() {
     }
   }
 
-  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setLoggedIn(true);
-      if (typeof window !== "undefined") sessionStorage.setItem("admin", "1");
-    } else {
-      setError("Nieprawidłowe hasło");
+  async function handleLogout() {
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+      router.push("/admin/login");
+    } catch {
+      console.error("Błąd wylogowania");
     }
   }
 
@@ -212,23 +201,16 @@ export default function AdminPage() {
     }).format(amount);
   }
 
-  if (!loggedIn) {
-    return (
-      <div className="max-w-md mx-auto pt-40 flex flex-col items-center">
-        <h1 className="text-2xl font-bold mb-6">Panel administracyjny</h1>
-        <form onSubmit={handleLogin} className="w-full flex flex-col gap-4">
-          <input type="password" placeholder="Hasło" value={password} onChange={e => setPassword(e.target.value)} className="border rounded-lg px-4 py-3 w-full" />
-          <button type="submit" className="bg-[#23611C] text-white rounded py-3 font-semibold text-base">Zaloguj</button>
-          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
-        </form>
-      </div>
-    );
-  }
-
   return (
     <div className="max-w-7xl mx-auto w-full pt-32 py-16 px-4">
-      <div className="mb-8">
+      <div className="mb-8 flex justify-between items-center">
         <h1 className="text-3xl font-bold">Panel Administracyjny</h1>
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"
+        >
+          Wyloguj
+        </button>
       </div>
 
       {/* Kafelki ze statystykami */}
@@ -395,292 +377,166 @@ export default function AdminPage() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  {stats.topCities.map((city, index) => (
+                  {stats.topCities.map((city) => (
                     <div key={city.city} className="flex justify-between items-center">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-gray-500">#{index + 1}</span>
-                        <span className="text-sm font-medium">{city.city}</span>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm text-gray-600">{city._count.city} zamówień</span>
-                        <span className="text-sm font-semibold text-[#23611C]">
-                          {formatCurrency(city._sum.total || 0)}
-                        </span>
-                      </div>
+                      <span className="text-sm font-medium">{city.city}</span>
+                      <span className="text-sm text-gray-600">{city._count.city} zamówień</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
           )}
-
-          {/* Statystyki wariantów - rozwijane */}
-          {showAllStats && (
-            <div className="bg-white border rounded-xl p-6 shadow-sm mb-12">
-              <h3 className="text-lg font-bold text-[#23611C] mb-4">Statystyki wariantów</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {stats.variantStats.map((variant) => (
-                  <div key={variant.variant} className="border rounded-lg p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <h4 className="font-semibold text-[#23611C]">
-                        Wariant {variant.variant} sztuk
-                      </h4>
-                      <span className="text-sm text-gray-500">
-                        {variant._count.variant} zamówień
-                      </span>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex justify-between">
-                        <span className="text-sm text-gray-600">Łączna ilość:</span>
-                        <span className="text-sm font-semibold">{variant._sum.quantity || 0} szt.</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm text-gray-600">Przychód:</span>
-                        <span className="text-sm font-semibold text-[#23611C]">
-                          {formatCurrency(variant._sum.total || 0)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </>
       )}
 
-      {/* Sekcja zamówień */}
-      <div className="border-t pt-8">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-[#23611C]">Zamówienia</h2>
-          <div className="flex gap-2">
-            <button 
-              onClick={() => setCurrentStatus("nowe")} 
-              className={`px-4 py-2 rounded-lg font-semibold ${currentStatus === "nowe" ? 'bg-[#23611C] text-white' : 'bg-gray-200 text-gray-700'}`}
+      {/* Tabs dla statusów zamówień */}
+      <div className="mb-6">
+        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+          {["nowe", "w trakcie", "zrealizowane"].map((status) => (
+            <button
+              key={status}
+              onClick={() => setCurrentStatus(status)}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                currentStatus === status
+                  ? "bg-white text-[#23611C] shadow-sm"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
             >
-              Nowe Zamówienia ({stats?.newOrders || 0})
+              {status.charAt(0).toUpperCase() + status.slice(1)}
             </button>
-            <button 
-              onClick={() => setCurrentStatus("zrealizowane")} 
-              className={`px-4 py-2 rounded-lg font-semibold ${currentStatus === "zrealizowane" ? 'bg-[#23611C] text-white' : 'bg-gray-200 text-gray-700'}`}
-            >
-              Historia Zamówień
-            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Wyszukiwanie dla historii */}
+      {currentStatus === "zrealizowane" && (
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Wyszukaj zamówienia..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#23611C] focus:border-transparent"
+          />
+        </div>
+      )}
+
+      {/* Lista zamówień */}
+      {loading ? (
+        <div className="space-y-4">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="bg-white border rounded-lg p-6 animate-pulse">
+              <div className="h-4 bg-gray-200 rounded mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {filteredOrders.map((order) => (
+            <div key={order.id} className="bg-white border rounded-lg p-6">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold">
+                    {order.firstName} {order.lastName}
+                  </h3>
+                  <p className="text-gray-600">{order.email}</p>
+                  {order.phone && <p className="text-gray-600">{order.phone}</p>}
+                </div>
+                <div className="text-right">
+                  <p className="text-lg font-bold text-[#23611C]">{formatCurrency(order.total)}</p>
+                  <p className="text-sm text-gray-500">ID: {order.id}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Adres</p>
+                  <p className="text-sm">{order.address}</p>
+                  <p className="text-sm">{order.zipCode} {order.city}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Szczegóły zamówienia</p>
+                  <p className="text-sm">Wariant: {order.variant}</p>
+                  <p className="text-sm">Ilość: {order.quantity}</p>
+                  <p className="text-sm">Dostawa: {order.delivery}</p>
+                  <p className="text-sm">Płatność: {order.payment}</p>
+                </div>
+              </div>
+
+              {order.companyName && (
+                <div className="mb-4">
+                  <p className="text-sm font-medium text-gray-600">Firma</p>
+                  <p className="text-sm">{order.companyName}</p>
+                  {order.nip && <p className="text-sm">NIP: {order.nip}</p>}
+                </div>
+              )}
+
+              <div className="flex justify-between items-center">
+                <div className="text-sm text-gray-500">
+                  {new Date(order.createdAt).toLocaleDateString('pl-PL')}
+                </div>
+                {currentStatus !== "zrealizowane" && (
+                  <div className="flex space-x-2">
+                    {currentStatus === "nowe" && (
+                      <button
+                        onClick={() => updateOrderStatus(order.id, "w trakcie")}
+                        disabled={updatingOrder === order.id}
+                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm disabled:opacity-50"
+                      >
+                        {updatingOrder === order.id ? "Aktualizuję..." : "W trakcie"}
+                      </button>
+                    )}
+                    {currentStatus === "w trakcie" && (
+                      <button
+                        onClick={() => updateOrderStatus(order.id, "zrealizowane")}
+                        disabled={updatingOrder === order.id}
+                        className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm disabled:opacity-50"
+                      >
+                        {updatingOrder === order.id ? "Aktualizuję..." : "Zrealizuj"}
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Paginacja */}
+      {pagination.totalPages > 1 && currentStatus !== "zrealizowane" && (
+        <div className="flex justify-center mt-8">
+          <div className="flex space-x-2">
+            {currentPage > 1 && (
+              <button
+                onClick={() => setCurrentPage(currentPage - 1)}
+                className="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50"
+              >
+                Poprzednia
+              </button>
+            )}
+            <span className="px-3 py-2 text-sm">
+              Strona {currentPage} z {pagination.totalPages}
+            </span>
+            {currentPage < pagination.totalPages && (
+              <button
+                onClick={() => setCurrentPage(currentPage + 1)}
+                className="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50"
+              >
+                Następna
+              </button>
+            )}
           </div>
         </div>
+      )}
 
-        {/* Wyszukiwarka - tylko dla historii */}
-        {currentStatus === "zrealizowane" && (
-          <div className="mb-6">
-            <div className="relative max-w-md">
-              <input
-                type="text"
-                placeholder="Szukaj w historii zamówień..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#23611C] focus:border-transparent"
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm("")}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                >
-                  <svg className="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              )}
-            </div>
-            {searchTerm && (
-              <div className="mt-2 text-sm text-gray-600">
-                Znaleziono {filteredOrders.length} wyników dla &quot;{searchTerm}&quot;
-              </div>
-            )}
-          </div>
-        )}
-
-        {loading ? (
-          <div className="text-center py-8">Ładowanie...</div>
-        ) : (
-          <>
-            <div className="grid gap-6">
-              {(currentStatus === "zrealizowane" ? filteredOrders : orders).map((order: Order) => (
-                <div key={order.id} className="bg-white border rounded-xl p-6 shadow-sm">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-semibold text-[#23611C]">
-                          Zamówienie #{order.id} - {order.firstName} {order.lastName}
-                        </h3>
-                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                          order.status === 'nowe' ? 'bg-yellow-100 text-yellow-800' :
-                          order.status === 'zrealizowane' ? 'bg-green-100 text-green-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
-                          {order.status}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        {order.createdAt ? new Date(order.createdAt).toLocaleString() : "-"}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl font-bold text-[#23611C]">
-                        {order.total.toFixed(2)} zł
-                      </div>
-                      <div className="text-sm text-gray-600">{order.payment}</div>
-                      {order.status === 'nowe' && (
-                        <button 
-                          onClick={() => updateOrderStatus(order.id, 'zrealizowane')}
-                          disabled={updatingOrder === order.id}
-                          className="mt-2 bg-green-600 text-white px-3 py-1 rounded text-sm font-semibold hover:bg-green-700 disabled:opacity-50"
-                        >
-                          {updatingOrder === order.id ? 'Aktualizuję...' : 'Zrealizuj'}
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-                    <div>
-                      <h4 className="font-semibold text-sm text-gray-700 mb-1">Dane klienta</h4>
-                      <div className="text-sm">
-                        <div>{order.email}</div>
-                        <div>{order.phone || '-'}</div>
-                        <div>{order.address}, {order.city} {order.zipCode}</div>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-semibold text-sm text-gray-700 mb-1">Produkt</h4>
-                      <div className="text-sm">
-                        <div>Young COCO woda kokosowa</div>
-                        <div>{order.variant} szt. × {order.quantity} = {order.price.toFixed(2)} zł</div>
-                        <div>Dostawa: {order.delivery}</div>
-                        {order.sessionId && (
-                          <div className="mt-1 text-xs text-gray-500 flex items-center gap-1">
-                            <span>Stripe ID: {order.sessionId}</span>
-                            <button 
-                              onClick={() => navigator.clipboard.writeText(order.sessionId!)}
-                              className="text-blue-600 hover:text-blue-800"
-                              title="Kopiuj ID sesji"
-                            >
-                              📋
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-semibold text-sm text-gray-700 mb-1">Zgody</h4>
-                      <div className="text-sm">
-                        <div className="flex items-center gap-1">
-                          <span>{order.consent1 ? '✅' : '❌'}</span>
-                          <span>Regulamin</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <span>{order.consent2 ? '✅' : '❌'}</span>
-                          <span>Marketing</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {order.companyName && (
-                    <div className="border-t pt-4">
-                      <h4 className="font-semibold text-sm text-gray-700 mb-1">Faktura</h4>
-                      <div className="text-sm">
-                        <div>{order.companyName}</div>
-                        <div>NIP: {order.nip}</div>
-                        {order.invoiceAddress && <div>{order.invoiceAddress}</div>}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Paginacja - tylko gdy nie ma wyszukiwania */}
-            {pagination.totalPages > 1 && (currentStatus !== "zrealizowane" || !searchTerm.trim()) && (
-              <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 p-4 bg-gray-50 rounded-lg">
-                <div className="text-sm text-gray-600">
-                  Pokazuję {((currentPage - 1) * 10) + 1}-{Math.min(currentPage * 10, pagination.total)} z {pagination.total} zamówień
-                </div>
-                <div className="flex items-center gap-2">
-                  <button 
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
-                    className="px-3 py-2 border rounded-lg disabled:opacity-50 hover:bg-white transition-colors"
-                  >
-                    ← Poprzednia
-                  </button>
-                  
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
-                      let pageNum;
-                      if (pagination.totalPages <= 5) {
-                        pageNum = i + 1;
-                      } else if (currentPage <= 3) {
-                        pageNum = i + 1;
-                      } else if (currentPage >= pagination.totalPages - 2) {
-                        pageNum = pagination.totalPages - 4 + i;
-                      } else {
-                        pageNum = currentPage - 2 + i;
-                      }
-                      
-                      return (
-                        <button
-                          key={pageNum}
-                          onClick={() => setCurrentPage(pageNum)}
-                          className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                            currentPage === pageNum
-                              ? 'bg-[#23611C] text-white'
-                              : 'border hover:bg-white'
-                          }`}
-                        >
-                          {pageNum}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  
-                  <button 
-                    onClick={() => setCurrentPage(Math.min(pagination.totalPages, currentPage + 1))}
-                    disabled={currentPage === pagination.totalPages}
-                    className="px-3 py-2 border rounded-lg disabled:opacity-50 hover:bg-white transition-colors"
-                  >
-                    Następna →
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Informacja gdy nie ma zamówień */}
-            {!loading && (currentStatus === "zrealizowane" ? filteredOrders : orders).length === 0 && (
-              <div className="text-center py-12">
-                <div className="text-gray-500 text-lg mb-2">
-                  {currentStatus === "nowe" ? "Brak aktywnych zamówień" : 
-                   searchTerm ? "Brak wyników wyszukiwania" : "Brak zrealizowanych zamówień"}
-                </div>
-                <div className="text-gray-400 text-sm">
-                  {currentStatus === "nowe" 
-                    ? "Nowe zamówienia pojawią się tutaj automatycznie" 
-                    : searchTerm 
-                    ? "Spróbuj zmienić kryteria wyszukiwania"
-                    : "Zrealizowane zamówienia pojawią się tutaj po oznaczeniu jako zrealizowane"
-                  }
-                </div>
-              </div>
-            )}
-          </>
-        )}
-      </div>
+      {error && (
+        <div className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg">
+          {error}
+        </div>
+      )}
     </div>
   );
 } 

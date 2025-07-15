@@ -115,9 +115,9 @@ export default function Home() {
           >
             <div className="animate-marquee flex px-8">
               <span className="mr-16">
-                WAKE THE COCONUT &nbsp; SHAKE ME &nbsp; SACÚDEME &nbsp; WAKE THE COCONUT &nbsp; SHAKE ME &nbsp; SACÚDEME &nbsp;
-                WAKE THE COCONUT &nbsp; SHAKE ME &nbsp; SACÚDEME &nbsp; WAKE THE COCONUT &nbsp; SHAKE ME &nbsp; SACÚDEME &nbsp;
-                WAKE THE COCONUT &nbsp; SHAKE ME &nbsp; SACÚDEME &nbsp; WAKE THE COCONUT &nbsp; SHAKE ME &nbsp; SACÚDEME &nbsp;
+                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
+                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
+                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
               </span>
             </div>
           </div>
