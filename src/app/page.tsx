@@ -203,8 +203,8 @@ export default function Home() {
           {/* Zakładki */}
           <div className="flex gap-4 mb-8 flex-wrap">
             <button className="px-7 py-2 rounded-full bg-[#A1C63A] text-[#115E2B] font-semibold text-lg shadow-sm border-2 border-[#A1C63A] focus:outline-none">Young Coco</button>
-            <button className="px-7 py-2 rounded-full bg-white text-[#23611C] font-semibold text-lg border-2 border-[#A1C63A] hover:bg-[#F3F7E7] transition focus:outline-none">Ewentualny kolejny smak</button>
-            <button className="px-7 py-2 rounded-full bg-white text-[#23611C] font-semibold text-lg border-2 border-[#A1C63A] hover:bg-[#F3F7E7] transition focus:outline-none">Ewentualny kolejny smak</button>
+            <button className="hidden px-7 py-2 rounded-full bg-white text-[#23611C] font-semibold text-lg border-2 border-[#A1C63A] hover:bg-[#F3F7E7] transition focus:outline-none">Ewentualny kolejny smak</button>
+            <button className="hidden px-7 py-2 rounded-full bg-white text-[#23611C] font-semibold text-lg border-2 border-[#A1C63A] hover:bg-[#F3F7E7] transition focus:outline-none">Ewentualny kolejny smak</button>
           </div>
           {/* Zalety w dwóch kolumnach */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 w-full mb-8">
