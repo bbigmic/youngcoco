@@ -60,7 +60,7 @@ export default function Home() {
           <img src="/cien-palmy1.png" alt="Palma tło" className="absolute left-0 top-0 w-auto h-screen md:h-full palm-sway-slow" style={{objectFit: 'contain', objectPosition: 'left top'}} />
         </div>
         {/* LEWA KOLUMNA */}
-        <section className="flex-1 flex flex-col justify-center items-start max-w-xl md:pr-12 md:-mt-30 z-1">
+        <section className="flex-1 flex flex-col justify-center items-start max-w-xl mt-12 md:pr-12 md:-mt-30 z-1">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 mt-24 leading-tight text-[#131313]">YOUNG COCO</h1>
           <p className="text-lg md:text-xl text-gray-700 mb-6">
             Nie musisz wyjeżdżać, by poczuć tropiki.<br />
@@ -85,7 +85,7 @@ export default function Home() {
         </section>
 
         {/* PRAWA KOLUMNA */}
-        <section className="flex-1 flex flex-col items-center justify-center relative w-full -mt-20 md:-mt-40">
+        <section className="flex-1 flex flex-col items-center justify-center relative w-full md:-mt-40">
           {/* Zielone koło */}
           <div className="absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-0 md:mr-16 top-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 rounded-full z-0" style={{ background: '#A1C63A' }}></div>
           {/* Puszka */}
