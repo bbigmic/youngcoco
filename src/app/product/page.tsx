@@ -156,7 +156,7 @@ export default function ProductPage() {
           {/* Info o dostawie */}
           <div className="flex flex-col md:flex-row gap-8 text-[#23611C] text-sm items-center justify-between w-full mt-2">
             <div className="flex items-center gap-2">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#23611C" strokeWidth="2"/><path d="M7 17h10M7 13h10M7 9h10" stroke="#23611C" strokeWidth="2"/></svg>
+              <img src="/icons-svg/local_shipping.svg" alt="dostawa" className="w-7 h-7" style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(86deg) brightness(94%) contrast(119%)' }} />
               Darmowa dostawa przy zakupie powyżej 150 zł brutto
             </div>
 
