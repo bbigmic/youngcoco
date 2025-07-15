@@ -13,7 +13,7 @@ const DELIVERY_OPTIONS = [
   { label: "Kurier InPost", value: "Kurier InPost", desc: "Wysyłka 24h", price: 13.99 },
 ];
 const PAYMENT_OPTIONS = [
-  { label: "P", value: "Stripe" },
+  { label: "Płatność kartą, Google Pay, BLIK", value: "Stripe" },
 ];
 
 export default function OrderSummaryPage() {
