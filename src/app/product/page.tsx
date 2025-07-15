@@ -15,10 +15,9 @@ const product = {
   variants: [24, 12],
   images: [
     "/can.png",
-    "/can.png",
-    "/can.png",
-    "/can.png",
-    "/can.png",
+    "/can-ang.png",
+    "/can-ang2.jpg",
+    "/can-ang-nobg.png",
   ],
 };
 
@@ -44,34 +43,36 @@ export default function ProductPage() {
   const { addToCart } = useCart();
 
   return (
-    <div className="w-full min-h-screen bg-white flex flex-col items-center justify-start pt-36 pb-20">
-      <div className="flex flex-col md:flex-row w-full max-w-6xl gap-4 md:gap-24 px-4 md:px-0 items-start md:items-start">
+    <div className="w-full min-h-screen bg-white flex flex-col items-center justify-start pt-32 sm:pt-36 md:pt-40 pb-12 md:pb-20">
+      <div className="flex flex-col lg:flex-row w-full max-w-6xl gap-6 md:gap-12 lg:gap-24 px-4 md:px-6 lg:px-0 items-start justify-center">
         {/* Zdjęcia */}
-        <div className="flex flex-col items-center flex-1 md:sticky md:top-36">
-          <div className="mb-10">
-            <Image src={product.images[selectedImg]} alt={product.name} width={320} height={440} className="mx-auto" />
+        <div className="flex flex-col items-center flex-1 lg:sticky lg:top-36 order-2 lg:order-1">
+          <div className="mb-6 md:mb-10">
+            <Image src={product.images[selectedImg]} alt={product.name} width={280} height={380} className="mx-auto w-64 sm:w-72 md:w-80 lg:w-96 h-auto" />
           </div>
-          <div className="flex gap-8 mt-2">
+          <div className="flex gap-4 md:gap-6 lg:gap-8 mt-2 flex-wrap justify-center">
             {product.images.map((img, i) => (
               <button key={i} onClick={() => setSelectedImg(i)} className={`border rounded-lg p-1 transition ${selectedImg === i ? 'border-[#A1C63A]' : 'border-[#E0E0E0]'}`}> 
-                <Image src={img} alt={`Young Coco miniatura ${i+1}`} width={60} height={60} />
+                <Image src={img} alt={`Young Coco miniatura ${i+1}`} width={50} height={50} className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-cover" />
               </button>
             ))}
           </div>
         </div>
         {/* Szczegóły produktu */}
-        <div className="flex-1 flex flex-col gap-6 max-w-xl w-full">
-          <div className="flex gap-2 mb-2">
+        <div className="flex-1 flex flex-col gap-4 md:gap-6 max-w-xl w-full order-1 lg:order-2">
+          <div className="flex gap-2 mb-2 flex-wrap">
             <span className="bg-[#E6F7C7] text-[#23611C] text-xs font-semibold px-3 py-1 rounded-lg">Promocja</span>
             <span className="bg-[#23611C] text-white text-xs font-semibold px-3 py-1 rounded-lg">Nowość</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-[#171717] mb-2">{product.name}</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#171717] mb-2">{product.name}</h1>
           <div className="text-[#7A7A7A] text-sm mb-1">{product.code}</div>
           <div className="text-[#171717] text-base mb-1">{product.volume}</div>
           <div className="text-[#171717] text-base mb-4">Opis produktu:<br /><span className="font-normal">{product.description}</span></div>
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mb-2 w-full">
-            <div className="relative w-full md:w-auto">
-              <select value={qty} onChange={e => setQty(Number(e.target.value))} className="border border-[#BDBDBD] rounded-lg px-4 pr-10 py-2 text-base focus:outline-none min-w-[140px] h-[40px] text-[#171717] appearance-none w-full">
+          
+          {/* Ceny - responsywny układ */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4 w-full">
+            <div className="relative w-full sm:w-auto">
+              <select value={qty} onChange={e => setQty(Number(e.target.value))} className="border border-[#BDBDBD] rounded-lg px-4 pr-10 py-2 text-base focus:outline-none min-w-[140px] h-[40px] text-[#171717] appearance-none w-full sm:w-auto">
                 {product.variants.map(v => (
                   <option key={v} value={v}>{v} sztuk</option>
                 ))}
@@ -81,30 +82,35 @@ export default function ProductPage() {
               </span>
             </div>
             <button
-              className="bg-[#23611C] hover:bg-[#115E2B] text-white font-bold rounded-[8px] px-10 py-2 flex items-center gap-2 text-[14px] shadow-lg transition-all h-[40px] min-w-[180px] justify-center md:ml-auto"
+              className="bg-[#23611C] hover:bg-[#115E2B] text-white font-bold rounded-[8px] px-6 md:px-10 py-2 flex items-center gap-2 text-[14px] shadow-lg transition-all h-[40px] min-w-[160px] md:min-w-[180px] justify-center sm:ml-auto"
               onClick={() => { addToCart(qty); router.push('/order/cart'); }}
             >
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zM7.16 16l.94-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 20 5H6.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12z" fill="currentColor"/></svg>
               Kup teraz
             </button>
           </div>
-          <div className="flex flex-col items-start md:items-end mb-2 w-full">
+          
+          {/* Ceny - responsywny układ */}
+          <div className="flex flex-col items-start sm:items-end mb-4 w-full">
             <span className="text-[#7A7A7A] text-base line-through mb-0.5">{OLD_PRICES[qty as 24 | 12].toFixed(2)} zł</span>
-            <div className="flex flex-row items-end gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-end gap-1 sm:gap-2">
               <span className="text-[#7A7A7A] text-base">Cena:</span>
-              <span className="text-[#23611C] text-3xl font-bold">{PRICES[qty as 24 | 12].toFixed(2)} zł</span>
-              <span className="text-[#7A7A7A] text-base ml-2">({UNIT_PRICES[qty as 24 | 12].toFixed(2)} zł/szt.)</span>
+              <div className="flex flex-col sm:flex-row sm:items-end gap-1 sm:gap-2">
+                <span className="text-[#23611C] text-2xl sm:text-3xl font-bold">{PRICES[qty as 24 | 12].toFixed(2)} zł</span>
+                <span className="text-[#7A7A7A] text-sm sm:text-base">({UNIT_PRICES[qty as 24 | 12].toFixed(2)} zł/szt.)</span>
+              </div>
             </div>
           </div>
+          
           {/* Skład i Alergeny */}
           <div className="rounded-lg overflow-hidden mb-4">
-            <button onClick={() => setShowDetails(v => !v)} className="w-full flex justify-between items-center px-6 py-4 bg-[#F7F7F7] text-[#171717] font-semibold text-base focus:outline-none">
+            <button onClick={() => setShowDetails(v => !v)} className="w-full flex justify-between items-center px-4 md:px-6 py-3 md:py-4 bg-[#F7F7F7] text-[#171717] font-semibold text-sm md:text-base focus:outline-none">
               Skład i Alergeny
-              <span className={`ml-2 transition-transform text-2xl ${showDetails ? 'rotate-180' : ''}`}>▼</span>
+              <span className={`ml-2 transition-transform text-xl md:text-2xl ${showDetails ? 'rotate-180' : ''}`}>▼</span>
             </button>
             {showDetails && (
-              <div className="px-6 py-4 bg-white text-[#23611C] text-base border-t">
-                <div className="space-y-4">
+              <div className="px-4 md:px-6 py-3 md:py-4 bg-white text-[#23611C] text-sm md:text-base border-t">
+                <div className="space-y-3 md:space-y-4">
                   <div>
                     <h4 className="font-semibold mb-2">Skład:</h4>
                     <p>100% woda kokosowa z młodych, zielonych kokosów z kawałkami orzecha kokosowego.</p>
@@ -112,7 +118,7 @@ export default function ProductPage() {
                   
                   <div>
                     <h4 className="font-semibold mb-2">Wartość odżywcza (na 100ml):</h4>
-                    <ul className="space-y-1 text-sm">
+                    <ul className="space-y-1 text-xs md:text-sm">
                       <li>• Energia: 19 kcal / 79 kJ</li>
                       <li>• Białko: 0.7g</li>
                       <li>• Węglowodany: 3.7g</li>
@@ -126,7 +132,7 @@ export default function ProductPage() {
                   <div>
                     <h4 className="font-semibold mb-2">Przechowywanie:</h4>
                     <p>Przechowywać w chłodnym i suchym miejscu. Unikać bezpośredniego nasłonecznienia, wilgoci i wysokich temperatur.</p>
-                    <p className="text-sm mt-1">Temperatura przechowywania: 4-25°C</p>
+                    <p className="text-xs md:text-sm mt-1">Temperatura przechowywania: 4-25°C</p>
                   </div>
                   
                   <div>
@@ -141,7 +147,7 @@ export default function ProductPage() {
                   
                   <div>
                     <h4 className="font-semibold mb-2">Charakterystyka:</h4>
-                    <ul className="space-y-1 text-sm">
+                    <ul className="space-y-1 text-xs md:text-sm">
                       <li>• Bez dodatku cukru</li>
                       <li>• Bez konserwantów</li>
                       <li>• Produkt naturalny</li>
@@ -153,13 +159,13 @@ export default function ProductPage() {
               </div>
             )}
           </div>
+          
           {/* Info o dostawie */}
-          <div className="flex flex-col md:flex-row gap-8 text-[#23611C] text-sm items-center justify-between w-full mt-2">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-8 text-[#23611C] text-xs md:text-sm items-start sm:items-center justify-between w-full mt-2">
             <div className="flex items-center gap-2">
-              <img src="/icons-svg/local_shipping.svg" alt="dostawa" className="w-7 h-7" style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(86deg) brightness(94%) contrast(119%)' }} />
-              Darmowa dostawa przy zakupie powyżej 150 zł brutto
+              <img src="/icons-svg/local_shipping.svg" alt="dostawa" className="w-6 h-6 md:w-7 md:h-7" style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(86deg) brightness(94%) contrast(119%)' }} />
+              <span className="text-xs md:text-sm">Darmowa dostawa przy zakupie powyżej 150 zł brutto</span>
             </div>
-
           </div>
         </div>
       </div>
