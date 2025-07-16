@@ -164,17 +164,26 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 w-full">
             {/* Zaleta 1 */}
             <div className="flex flex-col items-center max-w-xs">
-              <img src="/water-splash.png" alt="Autentyczny smak" className="w-28 h-28 object-contain mb-4" />
+              <div className="relative w-28 h-28 flex items-center justify-center mb-4">
+                <img src="/plate.png" alt="" className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
+                <img src="/taste.png" alt="Autentyczny smak" className="relative w-24 h-24 object-contain translate-y-6" />
+              </div>
               <p className="text-[#131313] text-base md:text-lg font-semibold text-center mt-2">Autentyczny, świeży smak</p>
             </div>
             {/* Zaleta 2 */}
             <div className="flex flex-col items-center max-w-xs">
-              <img src="/no-sugar.png" alt="Alternatywa dla słodzonych" className="w-28 h-28 object-contain mb-4" />
+              <div className="relative w-28 h-28 flex items-center justify-center mb-4">
+                <img src="/plate.png" alt="" className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
+                <img src="/no-sugar.png" alt="Alternatywa dla słodzonych" className="relative w-24 h-24 object-contain translate-y-6" />
+              </div>
               <p className="text-[#131313] text-base md:text-lg font-semibold text-center mt-2">Idealna alternatywa dla sztucznie dosładzanych napojów.</p>
             </div>
             {/* Zaleta 3 */}
             <div className="flex flex-col items-center max-w-xs">
-              <img src="/coconut.png" alt="Najwyższa jakość" className="w-28 h-28 object-contain mb-4" />
+              <div className="relative w-28 h-28 flex items-center justify-center mb-4">
+                <img src="/plate.png" alt="" className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
+                <img src="/coconut-icon.png" alt="Najwyższa jakość" className="relative w-24 h-24 object-contain translate-y-6" />
+              </div>
               <p className="text-[#131313] text-base md:text-lg font-semibold text-center mt-2">Wyjątkowe połączenie najwyższej jakości wody z młodych kokosów</p>
             </div>
           </div>
@@ -196,6 +205,8 @@ export default function Home() {
         <div className="relative flex-1 flex items-center justify-center min-w-[320px] max-w-md">
           <div className="absolute left-[-620px] top-2/3 -translate-y-1/2 w-[1020px] h-[340px] bg-[#A1C63A] rounded-[130px] -z-10" style={{zIndex:0}}></div>
           <img ref={canVariant.ref} src="/can.png" alt="Puszka Young Coco" className={`w-64 md:w-80 z-10 drop-shadow-2xl ${canVariant.animClass}`} style={{zIndex:2}} />
+          {/* Strzałka dekoracyjna */}
+          <ArrowAnimated />
         </div>
 
         {/* Prawa kolumna: zakładki, zalety, przycisk */}
@@ -236,7 +247,7 @@ export default function Home() {
           </Link>
         </div>
         {/* Strzałka dekoracyjna */}
-        <ArrowAnimated />
+        {/* <ArrowAnimated /> */}
       </section>
       
             {/* SEKCJA: Nowoczesna świadomość */}
@@ -394,7 +405,18 @@ function ArrowAnimated() {
   }, []);
 
   return (
-    <svg ref={ref} className={`absolute hidden md:block left-[38%] top-1/2 -translate-y-1/2 z-20 animate-draw-arrow${startAnim ? '' : ' no-anim'}`} width="220" height="110" viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      ref={ref}
+      className={`absolute z-20 animate-draw-arrow${startAnim ? '' : ' no-anim'}
+        md:left-2/3 md:top-1/2 md:-translate-y-1/2 md:rotate-0 md:block
+        left-1/2 bottom-[-100px] top-auto -translate-x-1/2 translate-y-0 rotate-150 block md:bottom-auto md:translate-x-0
+      `}
+      width="220"
+      height="110"
+      viewBox="0 0 220 110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path className="arrow-main" d="M30 70 Q120 10 110 50 Q100 90 170 60" stroke="#23611C" strokeWidth="4" strokeLinecap="round" fill="none"/>
       <path className="arrow-tip" style={{opacity: showTips ? 1 : 0, transition: 'opacity 0.5s'}} d="M170 60 l-16 -10" stroke="#23611C" strokeWidth="4" strokeLinecap="round" fill="none"/>
       <path className="arrow-tip" style={{opacity: showTips ? 1 : 0, transition: 'opacity 0.5s'}} d="M170 60 l-8 18" stroke="#23611C" strokeWidth="4" strokeLinecap="round" fill="none"/>
