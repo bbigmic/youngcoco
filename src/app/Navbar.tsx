@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
   const [underlineStyle, setUnderlineStyle] = useState({
     transform: "translateX(0px)",
     width: "130px"
@@ -55,24 +54,19 @@ export default function Navbar() {
     };
   }, [pathname]); // Dodaj pathname jako dependency, żeby observer był resetowany przy zmianie strony
 
-  // Sprawdzanie szerokości okna (czy desktop)
-  useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
-    checkDesktop();
-    window.addEventListener('resize', checkDesktop);
-    return () => window.removeEventListener('resize', checkDesktop);
-  }, []);
-
-  // Scroll effect tylko na desktopie
+  // Scroll effect
   React.useEffect(() => {
-    if (!isDesktop) {
-      setScrolled(false);
-      return;
-    }
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => {
+      // Jeśli menu hamburger jest otwarte na mobilnych, nie zmieniaj stanu scrolled
+      if (menuOpen && window.innerWidth < 768) {
+        setScrolled(false);
+        return;
+      }
+      setScrolled(window.scrollY > 10);
+    };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isDesktop]);
+  }, [menuOpen]);
 
   // Funkcja do obliczania pozycji i szerokości podkreślenia
   const updateUnderlinePosition = () => {
@@ -114,8 +108,8 @@ export default function Navbar() {
   }, [pathname, isContactSectionVisible]);
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 md:px-10 py-6 transition-colors duration-300 ${isDesktop && scrolled ? 'bg-white/80 backdrop-blur shadow' : 'bg-transparent'}`}>
-      <nav className="flex items-center gap-6 md:gap-10 w-full lg:px-32">
+    <header className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 md:px-10 py-6 transition-colors duration-300 ${scrolled ? 'bg-white/80 backdrop-blur shadow' : 'bg-transparent'}`}>
+      <nav className="flex items-center gap-6 md:gap-10 w-full lg:px-24 xl:px-32">
         <Link href="/">
           <Image src="/logo.png" alt="Young Coco logo" width={90} height={40} className="mr-4" />
         </Link>

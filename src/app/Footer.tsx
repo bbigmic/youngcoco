@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#181818] text-[#ededed] pt-16 pb-8 px-4 md:px-24 2xl:px-80 mt-0">
+    <footer className="w-full bg-[#181818] text-[#ededed] pt-16 pb-8 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 mt-0">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-0">
         {/* Lewa kolumna */}
         <div className="flex flex-col items-start gap-6 max-w-md">

@@ -54,10 +54,10 @@ export default function Home() {
       {/* USUWAM kod header/navbar oraz footer */}
 
       {/* GŁÓWNY UKŁAD HERO */}
-      <main ref={heroSection.ref} className={`min-h-screen flex flex-col md:flex-row items-center justify-center pt-0 pb-0 px-8 md:px-32 2xl:px-80 gap-8 md:gap-0 w-full relative overflow-hidden ${heroSection.animClass}`}>
+      <main ref={heroSection.ref} className={`min-h-screen flex flex-col md:flex-row items-center justify-center pt-0 pb-0 px-8 md:px-24 lg:px-32 xl:px-48 2xl:px-64 gap-8 md:gap-0 w-full relative overflow-hidden ${heroSection.animClass}`}>
         {/* Animowana palma w tle */}
         <div className="absolute left-0 top-0 w-full h-full pointer-events-none select-none">
-          <img src="/cien-palmy1.png" alt="Palma tło" className="absolute left-0 top-0 w-auto h-screen md:h-full palm-sway-slow" style={{objectFit: 'contain', objectPosition: 'left top'}} />
+          <img src="/cien-palmy1.png" alt="Palma tło" className="absolute left-0 top-0 w-auto h-screen md:h-full palm-sway-slow" style={{objectFit: 'contain', objectPosition: 'left top', maxWidth: '60%'}} />
         </div>
         {/* LEWA KOLUMNA */}
         <section className="flex-1 flex flex-col justify-center items-start max-w-xl mt-12 md:pr-12 md:-mt-30 z-1">
@@ -87,7 +87,7 @@ export default function Home() {
         {/* PRAWA KOLUMNA */}
         <section className="flex-1 flex flex-col items-center justify-center relative w-full md:-mt-40">
           {/* Zielone koło */}
-          <div className="absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-0 md:mr-16 top-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 rounded-full z-0" style={{ background: '#A1C63A' }}></div>
+          <div className="absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-0 md:mr-8 lg:mr-16 top-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 rounded-full z-0" style={{ background: '#A1C63A' }}></div>
           {/* Puszka */}
           <Image ref={canHero.ref} src="/can.png" alt="Puszka Young Coco" width={260} height={360} className={`relative z-10 drop-shadow-xl ${canHero.animClass}`} priority />
           {/* Dekoracje kokosów - różne kawałki */}
@@ -100,36 +100,34 @@ export default function Home() {
 
         {/* UKOŚNY PASEK Z NAPISEM */}
         <section className="absolute w-screen left-1/2 right-1/2 -translate-x-1/2 bottom-[-100px] md:bottom-[180px] z-20 animated-banner" style={{ height: 80 }}>
-          <div style={{overflowX: 'hidden', width: '100vw', position: 'relative', height: 80}}>
-            <div
-              className="absolute w-[120vw] left-1/2 -translate-x-1/2 flex items-center"
-              style={{
-                background: '#23611C',
-                color: '#A1C63A',
-                fontWeight: 800,
-                fontSize: 32,
-                height: 80,
-                transform: 'rotate(-10deg)',
-                whiteSpace: 'nowrap',
-                overflow: 'visible',
-              }}
-            >
-              <div className="animate-marquee flex px-4 md:px-8">
-                <span className="mr-8 md:mr-16">
-                  WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
-                  WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
-                  WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
-                </span>
-              </div>
+          <div
+            className="absolute w-[110vw] left-1/2 -translate-x-1/2 flex items-center"
+            style={{
+              background: '#23611C',
+              color: '#A1C63A',
+              fontWeight: 800,
+              fontSize: 32,
+              height: 80,
+              transform: 'rotate(-10deg)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden !important',
+            }}
+          >
+            <div className="animate-marquee flex px-8">
+              <span className="mr-16">
+                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
+                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
+                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
+              </span>
             </div>
           </div>
         </section>
       </main>
 
       {/* NOWA SEKCJA: DLACZEGO YOUNG COCO? */}
-      <section ref={whySection.ref} className={`relative w-full py-42 md:py-24 px-4 md:px-24 2xl:px-80 flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24 ${whySection.animClass}`}>
+      <section ref={whySection.ref} className={`relative w-full py-42 md:py-24 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24 ${whySection.animClass}`}>
         {/* Dekoracja palma po prawej */}
-        <img src="/cien-palmy2.png" alt="Palma dekoracja" className="hidden md:block pointer-events-none select-none absolute right-0 top-0 h-full w-auto z-10 palm-sway-right" style={{maxHeight: '90%', objectFit: 'contain'}} />
+        <img src="/cien-palmy2.png" alt="Palma dekoracja" className="hidden md:block pointer-events-none select-none absolute right-0 top-0 h-full w-auto z-10 palm-sway-right" style={{maxHeight: '90%', objectFit: 'contain', maxWidth: '50%'}} />
         {/* Lewa kolumna: tekst i lista */}
         <div className="flex-1 max-w-xl">
           <h2 className="text-2xl md:text-2xl font-bold mb-6 text-[#131313]">Czysty kokos. Nic więcej.</h2>
@@ -197,18 +195,20 @@ export default function Home() {
 
 
       {/* SEKCJA: Wariant produktu z puszką i zaletami */}
-      <section ref={canSection.ref} className={`relative w-full bg-[#FAFAF6] pt-32 pb-20 px-4 md:px-24 2xl:px-80 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 overflow-visible ${canSection.animClass}`} style={{overflow: 'visible'}}>
+      <section ref={canSection.ref} className={`relative w-full bg-[#FAFAF6] pt-32 pb-20 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 overflow-visible ${canSection.animClass}`} style={{overflow: 'visible'}}>
         {/* Dekoracje tła */}
         <img src="/coconut-piece3.png" alt="kokos dekoracja" className="absolute left-1/4 -top-10 w-20 md:w-28 z-10 coconut-piece" style={{zIndex:2}} />
-        <img src="/duzy-zielony-kokos.png" alt="duży kokos" className="hidden md:block absolute right-0 -top-32 w-96 z-30 coconut-piece" style={{zIndex:30}} />
+        <img src="/duzy-zielony-kokos.png" alt="duży kokos" className="hidden md:block absolute right-0 -top-32 w-80 lg:w-96 z-30 coconut-piece" style={{zIndex:30}} />
         <img src="/coconut-piece4.png" alt="kokos dekoracja" className="absolute right-10 bottom-0 w-20 md:w-28 z-10 coconut-piece" style={{zIndex:2}} />
 
         {/* Lewa kolumna: puszka na tle zielonego koła */}
         <div className="relative flex-1 flex items-center justify-center min-w-[320px] max-w-md">
-          <div className="absolute left-[-620px] top-2/3 -translate-y-1/2 w-[1020px] h-[340px] bg-[#A1C63A] rounded-[130px] -z-10" style={{zIndex:0}}></div>
+          <div className="absolute left-[-400px] lg:left-[-500px] xl:left-[-600px] top-2/3 -translate-y-1/2 w-[800px] lg:w-[900px] xl:w-[1000px] h-[340px] bg-[#A1C63A] rounded-[130px] -z-10" style={{zIndex:0}}></div>
           <img ref={canVariant.ref} src="/can.png" alt="Puszka Young Coco" className={`w-64 md:w-80 z-10 drop-shadow-2xl ${canVariant.animClass}`} style={{zIndex:2}} />
           {/* Strzałka dekoracyjna */}
-          <ArrowAnimated />
+          <div className="z-40">
+            <ArrowAnimated />
+          </div>
         </div>
 
         {/* Prawa kolumna: zakładki, zalety, przycisk */}
@@ -253,7 +253,7 @@ export default function Home() {
       </section>
       
             {/* SEKCJA: Nowoczesna świadomość */}
-            <section ref={ecoSection.ref} className={`w-full flex flex-col md:flex-row items-center justify-between py-16 md:py-20 px-4 md:px-24 2xl:px-80 gap-8 md:gap-16 ${ecoSection.animClass}`}>
+            <section ref={ecoSection.ref} className={`w-full flex flex-col md:flex-row items-center justify-between py-16 md:py-20 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 gap-8 md:gap-16 ${ecoSection.animClass}`}>
         {/* Lewa kolumna: tekst */}
         <div className="flex-1 max-w-lg">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#131313] mb-3 md:mb-4">Od plantacji po Twój łyk – historia czystej świeżości</h2>
@@ -277,7 +277,7 @@ export default function Home() {
       </section>
 
       {/* SEKCJA: Każda puszka to krok ku czystszej planecie */}
-      <section className="w-full flex flex-col md:flex-row items-center justify-between py-16 md:py-20 px-4 md:px-24 2xl:px-80 gap-8 md:gap-16">
+      <section className="w-full flex flex-col md:flex-row items-center justify-between py-16 md:py-20 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 gap-8 md:gap-16">
         {/* Lewa kolumna: zdjęcie */}
         <div className="flex-1 flex items-center justify-start w-full max-w-2xl">
           <img src="/earth-hands.jpg" alt="Ręce trzymające globus z liśćmi" className="w-[500px] max-w-none h-[400px] object-cover rounded-lg" />
@@ -295,7 +295,7 @@ export default function Home() {
       </section>
 
       {/* SEKCJA: Instagram / Co u Nas? */}
-      <section ref={instaSection.ref} className={`w-full py-24 px-4 md:px-24 2xl:px-80 ${instaSection.animClass}`}>
+      <section ref={instaSection.ref} className={`w-full py-24 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 ${instaSection.animClass}`}>
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-[#131313]">Co u Nas?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
           {/* Post 1 */}
@@ -346,7 +346,7 @@ export default function Home() {
       </section>
 
       {/* SEKCJA: Kontakt */}
-      <section id="kontakt" ref={contactSection.ref} className={`w-full bg-[#181818] text-[#ededed] py-12 px-4 md:px-24 2xl:px-80 flex flex-col md:flex-row items-center justify-between gap-16 md:gap-24 ${contactSection.animClass}`}>
+      <section id="kontakt" ref={contactSection.ref} className={`w-full bg-[#181818] text-[#ededed] py-12 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 flex flex-col md:flex-row items-center justify-between gap-16 md:gap-24 ${contactSection.animClass}`}>
         {/* Lewa kolumna: tekst */}
         <div className="flex-1 max-w-xl mb-12 md:mb-0">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#ededed]">Masz Pytania?</h2>
