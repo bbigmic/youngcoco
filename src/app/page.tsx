@@ -99,26 +99,28 @@ export default function Home() {
         </section>
 
         {/* UKOŚNY PASEK Z NAPISEM */}
-        <section className="absolute w-screen left-1/2 right-1/2 -translate-x-1/2 bottom-[-100px] md:bottom-[180px] z-20 animated-banner overflow-hidden" style={{ height: 80 }}>
-          <div
-            className="absolute w-[120vw] left-1/2 -translate-x-1/2 flex items-center"
-            style={{
-              background: '#23611C',
-              color: '#A1C63A',
-              fontWeight: 800,
-              fontSize: 32,
-              height: 80,
-              transform: 'rotate(-10deg)',
-              whiteSpace: 'nowrap',
-              overflow: 'visible',
-            }}
-          >
-            <div className="animate-marquee flex px-8">
-              <span className="mr-16">
-                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
-                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
-                WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
-              </span>
+        <section className="absolute w-screen left-1/2 right-1/2 -translate-x-1/2 bottom-[-100px] md:bottom-[180px] z-20 animated-banner" style={{ height: 80 }}>
+          <div style={{overflowX: 'hidden', width: '100vw', position: 'relative', height: 80}}>
+            <div
+              className="absolute w-[120vw] left-1/2 -translate-x-1/2 flex items-center"
+              style={{
+                background: '#23611C',
+                color: '#A1C63A',
+                fontWeight: 800,
+                fontSize: 32,
+                height: 80,
+                transform: 'rotate(-10deg)',
+                whiteSpace: 'nowrap',
+                overflow: 'visible',
+              }}
+            >
+              <div className="animate-marquee flex px-4 md:px-8">
+                <span className="mr-8 md:mr-16">
+                  WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
+                  WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
+                  WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp; WAKE THE COCONUT &nbsp;
+                </span>
+              </div>
             </div>
           </div>
         </section>
