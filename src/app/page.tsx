@@ -67,7 +67,7 @@ export default function Home() {
             Zamknęliśmy w puszce to, co najlepsze w młodym kokosie – jego czystość, lekkość i naturalną siłę.
           </p>
           <p className="text-[#115E2B] font-semibold text-lg mb-8">Jeden łyk. I jesteś tam.</p>
-          <Link href="/product" className="bg-[#115E2B] hover:bg-[#0d4a21] text-white font-bold rounded-[8px] w-[210px] h-[40px] flex items-center justify-center text-[14px] shadow-lg transition-all pl-2">
+          <Link href="/product" className="bg-[#115E2B] hover:bg-[#0d4a21] text-white font-bold rounded-[8px] w-[210px] h-[60px] flex items-center justify-center text-[14px] shadow-lg transition-all pl-2">
             Spróbuj YOUNG COCO
             <span className="ml-3 inline-block align-middle w-[18px] h-[18px] rotate-90">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -239,7 +239,7 @@ export default function Home() {
             </div>
           </div>
           {/* Przycisk */}
-          <Link href="/product" className="bg-[#115E2B] hover:bg-[#0d4a21] text-white font-bold rounded-[8px] w-[210px] h-[40px] flex items-center justify-center text-[14px] shadow-lg transition-all pl-2 mt-2">
+          <Link href="/product" className="bg-[#115E2B] hover:bg-[#0d4a21] text-white font-bold rounded-[8px] w-[210px] h-[60px] flex items-center justify-center text-[14px] shadow-lg transition-all pl-2 mt-2">
             Kup teraz
             <span className="ml-3 inline-block align-middle w-[18px] h-[18px] text-white">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
