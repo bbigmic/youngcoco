@@ -248,8 +248,6 @@ export default function Home() {
             </span>
           </Link>
         </div>
-        {/* Strzałka dekoracyjna */}
-        {/* <ArrowAnimated /> */}
       </section>
       
             {/* SEKCJA: Nowoczesna świadomość */}
@@ -411,7 +409,7 @@ function ArrowAnimated() {
       ref={ref}
       className={`absolute z-20 animate-draw-arrow${startAnim ? '' : ' no-anim'}
         md:left-2/3 md:top-1/2 md:-translate-y-1/2 md:rotate-0 md:block
-        left-1/2 bottom-[-100px] top-auto -translate-x-1/2 translate-y-0 rotate-150 block md:bottom-auto md:translate-x-0
+        left-3/5 bottom-[-100px] top-auto -translate-x-1/2 translate-y-0 rotate-150 block md:bottom-auto md:translate-x-0
       `}
       width="220"
       height="110"
