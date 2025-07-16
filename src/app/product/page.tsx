@@ -12,7 +12,7 @@ const product = {
   description: "Napój niegazowany.",
   details: "Woda kokosowa z kawałkami orzecha.",
   // Usuwam price i oldPrice, bo będą liczone dynamicznie
-  variants: [24, 12],
+  variants: [240, 96, 24, 12],
   images: [
     "/can.png",
     "/can-ang.png",
@@ -23,14 +23,20 @@ const product = {
 
 // Cennik dla wariantów
 const PRICES = {
+  240: 1053.60,
+  96: 421.44,
   24: 105.36,
   12: 55.08,
 };
 const UNIT_PRICES = {
+  240: 4.39,
+  96: 4.39,
   24: 4.39,
   12: 4.59,
 };
 const OLD_PRICES = {
+  240: 1317.60, // przykładowa przekreślona cena (np. 5.49 zł/szt)
+  96: 527.04,
   24: 131.76, // przykładowa przekreślona cena (np. 5.49 zł/szt)
   12: 65.88,
 };
@@ -72,7 +78,7 @@ export default function ProductPage() {
           {/* Ceny - responsywny układ */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4 w-full">
             <div className="relative w-full sm:w-auto">
-              <select value={qty} onChange={e => setQty(Number(e.target.value))} className="border border-[#BDBDBD] rounded-lg px-4 pr-10 py-2 text-base focus:outline-none min-w-[140px] h-[40px] text-[#171717] appearance-none w-full sm:w-auto">
+              <select value={qty} onChange={e => setQty(Number(e.target.value))} className="border border-[#BDBDBD] rounded-lg px-4 pr-10 py-2 text-base focus:outline-none min-w-[140px] h-[60px] text-[#171717] appearance-none w-full sm:w-auto">
                 {product.variants.map(v => (
                   <option key={v} value={v}>{v} sztuk</option>
                 ))}
@@ -82,7 +88,7 @@ export default function ProductPage() {
               </span>
             </div>
             <button
-              className="bg-[#23611C] hover:bg-[#115E2B] text-white font-bold rounded-[8px] px-6 md:px-10 flex items-center gap-2 text-[14px] shadow-lg transition-all h-[40px] min-w-[160px] md:min-w-[180px] justify-center sm:ml-auto"
+              className="bg-[#23611C] hover:bg-[#115E2B] text-white font-bold rounded-[8px] px-6 md:px-10 flex items-center gap-2 text-[14px] shadow-lg transition-all h-[60px] min-w-[160px] md:min-w-[280px] justify-center sm:ml-auto"
               onClick={() => { addToCart(qty); router.push('/order/cart'); }}
             >
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zM7.16 16l.94-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 20 5H6.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12z" fill="currentColor"/></svg>
@@ -92,12 +98,12 @@ export default function ProductPage() {
           
           {/* Ceny - responsywny układ */}
           <div className="flex flex-col items-start sm:items-end mb-4 w-full">
-            <span className="text-[#7A7A7A] text-base line-through mb-0.5">{OLD_PRICES[qty as 24 | 12].toFixed(2)} zł</span>
+            <span className="text-[#7A7A7A] text-base line-through mb-0.5">{OLD_PRICES[qty as 240 | 96 | 24 | 12].toFixed(2)} zł</span>
             <div className="flex flex-col sm:flex-row sm:items-end gap-1 sm:gap-2">
               <span className="text-[#7A7A7A] text-base">Cena:</span>
               <div className="flex flex-col sm:flex-row sm:items-end gap-1 sm:gap-2">
-                <span className="text-[#23611C] text-2xl sm:text-3xl font-bold">{PRICES[qty as 24 | 12].toFixed(2)} zł</span>
-                <span className="text-[#7A7A7A] text-sm sm:text-base">({UNIT_PRICES[qty as 24 | 12].toFixed(2)} zł/szt.)</span>
+                <span className="text-[#23611C] text-2xl sm:text-3xl font-bold">{PRICES[qty as 240 | 96 | 24 | 12].toFixed(2)} zł</span>
+                <span className="text-[#7A7A7A] text-sm sm:text-base">({UNIT_PRICES[qty as 240 | 96 | 24 | 12].toFixed(2)} zł/szt.)</span>
               </div>
             </div>
           </div>

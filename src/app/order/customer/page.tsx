@@ -71,9 +71,9 @@ export default function CustomerFormPage() {
   // PODSUMOWANIE KOSZYKA
   let summary = null;
   if (item) {
-    const PRICES = { 24: 105.36, 12: 55.08 };
+    const PRICES = { 240: 1053.60, 96: 421.44, 24: 105.36, 12: 55.08 };
     const DELIVERY_COST = 13.99; // domyślnie jak w koszyku
-    const variant = item.variant as 24 | 12;
+          const variant = item.variant as 240 | 96 | 24 | 12;
     const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
     const brutto = netto;
     const deliveryCost = brutto >= 150 ? 0 : DELIVERY_COST;

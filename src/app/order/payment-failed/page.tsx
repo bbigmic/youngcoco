@@ -58,7 +58,7 @@ export default function PaymentFailedPage() {
             <div className="text-left">
               <p><strong>Produkt:</strong> Young COCO woda kokosowa {item.variant} sztuk</p>
               <p><strong>Ilość:</strong> {item.quantity} zestaw(ów)</p>
-              <p><strong>Wartość:</strong> {(PRICES[item.variant as 24 | 12] * item.quantity).toFixed(2)} zł</p>
+              <p><strong>Wartość:</strong> {(PRICES[item.variant as 240 | 96 | 24 | 12] * item.quantity).toFixed(2)} zł</p>
             </div>
           </div>
         )}
@@ -68,6 +68,8 @@ export default function PaymentFailedPage() {
 }
 
 const PRICES = {
+  240: 1053.60,
+  96: 421.44,
   24: 105.36,
   12: 55.08,
 }; 

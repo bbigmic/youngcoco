@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useState } from "react";
 
 const PRICES = {
+  240: 1053.60,
+  96: 421.44,
   24: 105.36,
   12: 55.08,
 };
@@ -34,7 +36,7 @@ export default function OrderSummaryPage() {
     );
   }
 
-  const variant = item.variant as 24 | 12;
+  const variant = item.variant as 240 | 96 | 24 | 12;
   const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
   const brutto = netto;
   const deliveryCost = brutto >= 150 ? 0 : delivery.price;
@@ -64,7 +66,7 @@ export default function OrderSummaryPage() {
           : null,
         variant: item.variant,
         quantity: item.quantity,
-        price: PRICES[item.variant as 24 | 12],
+        price: PRICES[item.variant as 240 | 96 | 24 | 12],
         total: total, // Używamy total z obliczeń na stronie
         delivery: delivery.label,
         payment: payment.label,

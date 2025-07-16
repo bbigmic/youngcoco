@@ -107,9 +107,9 @@ function OrderConfirmationContent() {
     setError(null);
     
     try {
-      const PRICES = { 24: 105.36, 12: 55.08 };
+      const PRICES = { 240: 1053.60, 96: 421.44, 24: 105.36, 12: 55.08 };
       const DELIVERY_COST = 13.99;
-      const variant = item.variant as 24 | 12;
+      const variant = item.variant as 240 | 96 | 24 | 12;
       const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
       const brutto = netto;
       const deliveryCost = brutto >= 150 ? 0 : DELIVERY_COST;
@@ -131,7 +131,7 @@ function OrderConfirmationContent() {
           : null,
         variant: item.variant,
         quantity: item.quantity,
-        price: PRICES[item.variant as 24 | 12],
+        price: PRICES[item.variant as 240 | 96 | 24 | 12],
         total: total,
         delivery: "Kurier InPost", // Domyślna opcja
         payment: "Stripe",
@@ -191,9 +191,9 @@ function OrderConfirmationContent() {
       consent1: savedOrder.consent1,
       consent2: savedOrder.consent2,
     };
-    const PRICES = { 24: 105.36, 12: 55.08 };
+    const PRICES = { 240: 1053.60, 96: 421.44, 24: 105.36, 12: 55.08 };
     const DELIVERY_COST = 13.99;
-    const variant = savedOrder.variant as 24 | 12;
+    const variant = savedOrder.variant as 240 | 96 | 24 | 12;
     const netto = Math.round(PRICES[variant] * savedOrder.quantity * 100) / 100;
     const brutto = netto;
     const deliveryCost = brutto >= 150 ? 0 : DELIVERY_COST;
@@ -322,7 +322,32 @@ function OrderConfirmationContent() {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mt-32 mb-8">
+        {/* Progress Bar */}
+        <div className="mb-8 mt-26 md:mb-10">
+          <div className="flex items-center justify-center gap-1 md:gap-2 lg:gap-4 mb-6 md:mb-8 flex-wrap">
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full bg-[#BDBDBD] text-white flex items-center justify-center font-bold text-xs md:text-sm lg:text-base">1</div>
+              <span className="font-semibold text-[#BDBDBD] text-xs md:text-sm lg:text-base">Twoje zamówienie</span>
+            </div>
+            <div className="h-0.5 w-2 md:w-4 lg:w-8 bg-[#BDBDBD] hidden sm:block"></div>
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full bg-[#BDBDBD] text-white flex items-center justify-center font-bold text-xs md:text-sm lg:text-base">2</div>
+              <span className="font-semibold text-[#BDBDBD] text-xs md:text-sm lg:text-base">Dane klienta</span>
+            </div>
+            <div className="h-0.5 w-2 md:w-4 lg:w-8 bg-[#BDBDBD] hidden sm:block"></div>
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full bg-[#BDBDBD] text-white flex items-center justify-center font-bold text-xs md:text-sm lg:text-base">3</div>
+              <span className="font-semibold text-[#BDBDBD] text-xs md:text-sm lg:text-base">Podsumowanie</span>
+            </div>
+            <div className="h-0.5 w-2 md:w-4 lg:w-8 bg-[#23611C] hidden sm:block"></div>
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full bg-[#23611C] text-white flex items-center justify-center font-bold text-xs md:text-sm lg:text-base">4</div>
+              <span className="font-semibold text-xs md:text-sm lg:text-base">Potwierdzenie</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-[#23611C] mb-2">
             Potwierdzenie zamówienia
           </h1>

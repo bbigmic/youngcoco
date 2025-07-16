@@ -8,14 +8,18 @@ const PRODUCT = {
   name: "Young COCO woda kokosowa",
   imageUrl: "/can.png",
   // price: 129, // usuwam, bo cena zależy od wariantu
-  variants: [24, 12],
+  variants: [240, 96, 24, 12],
 };
 
 const PRICES = {
+  240: 1053.60,
+  96: 421.44,
   24: 105.36,
   12: 55.08,
 };
 const UNIT_PRICES = {
+  240: 4.39,
+  96: 4.39,
   24: 4.39,
   12: 4.59,
 };
@@ -46,7 +50,7 @@ export default function CartPage() {
   }
 
   // Wyliczanie ceny na podstawie wariantu
-  const variant = item.variant as 24 | 12;
+  const variant = item.variant as 240 | 96 | 24 | 12;
   const netto = Math.round(PRICES[variant] * item.quantity * 100) / 100;
   const brutto = netto; // brutto = netto, bo ceny są brutto
   const deliveryObj = DELIVERY_OPTIONS.find(d => d.value === delivery)!;

@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type CartItem = {
-  variant: number; // 24, 12
+  variant: number; // 240, 96, 24, 12
   quantity: number; // może być większe niż 1
 };
 
