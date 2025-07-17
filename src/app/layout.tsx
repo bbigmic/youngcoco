@@ -14,7 +14,7 @@ const wixMadefor = Wix_Madefor_Display({
 
 export const metadata: Metadata = {
   title: "Young Coco - Woda kokosowa",
-  description: "Naturalna woda kokosowa z młodych, zielonych kokosów. 100% natura, bez cukru i konserwantów. Spróbuj Young Coco i poczuj tropiki w każdym łyku.",
+  description: "Naturalna woda kokosowa z młodych, zielonych kokosów. 100% natura, bez konserwantów. Spróbuj Young Coco i poczuj tropiki w każdym łyku.",
 };
 
 export default function RootLayout({

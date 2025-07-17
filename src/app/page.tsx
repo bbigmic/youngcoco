@@ -146,7 +146,7 @@ export default function Home() {
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#A1C63A"/><path d="M6 10.5L9 13.5L14 8.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-              <span className="text-[#131313] text-base md:text-lg">Bez cukru i konserwantów</span>
+              <span className="text-[#131313] text-base md:text-lg">Bez konserwantów</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#A1C63A"/><path d="M6 10.5L9 13.5L14 8.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
