@@ -87,13 +87,13 @@ export default function ProductPage() {
                 <img src="/icons-svg/down-arrow.svg" alt="strzałka" className="w-5 h-5" />
               </span>
             </div>
-            <button
+            {/* <button
               className="bg-[#23611C] hover:bg-[#115E2B] text-white font-bold rounded-[8px] px-6 md:px-10 flex items-center gap-2 text-[14px] shadow-lg transition-all h-[60px] min-w-[160px] md:min-w-[280px] justify-center sm:ml-auto"
               onClick={() => { addToCart(qty); router.push('/order/cart'); }}
             >
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zM7.16 16l.94-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 20 5H6.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12z" fill="currentColor"/></svg>
               Kup teraz
-            </button>
+            </button> */}
           </div>
           
           {/* Ceny - responsywny układ */}

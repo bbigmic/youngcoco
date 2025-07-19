@@ -117,7 +117,7 @@ export default function Navbar() {
         <div className="hidden md:flex gap-8 text-lg font-normal text-[#131313] justify-center">
           <ul className="flex gap-8 relative inline-flex" ref={ulRef}>
             <li ref={homeRef}><Link href="/" className="pb-1 transition-colors hover:text-grey-700">Strona Główna</Link></li>
-            <li ref={productRef}><Link href="/product" className="pb-1 transition-colors hover:text-grey-700">Woda kokosowa</Link></li>
+            {/* <li ref={productRef}><Link href="/product" className="pb-1 transition-colors hover:text-grey-700">Woda kokosowa</Link></li> */}
             <li ref={contactRef}><Link href="/#kontakt" className="pb-1 transition-colors hover:text-grey-700">Kontakt</Link></li>
             {/* Animowane podkreślenie */}
             <div 
