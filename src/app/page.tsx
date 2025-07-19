@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
-import Link from "next/link";
 
 // Hook do animacji wejścia sekcji lub elementu
 function useSectionInView(animationClass = "animate-fade-in") {
@@ -57,7 +56,7 @@ export default function Home() {
       <main ref={heroSection.ref} className={`min-h-screen flex flex-col md:flex-row items-center justify-center pt-0 pb-0 px-8 md:px-24 lg:px-32 xl:px-48 2xl:px-64 gap-8 md:gap-0 w-full relative overflow-hidden ${heroSection.animClass}`}>
         {/* Animowana palma w tle */}
         <div className="absolute left-0 top-0 w-full h-full pointer-events-none select-none">
-          <img src="/cien-palmy1.png" alt="Palma tło" className="absolute left-0 top-0 w-auto h-screen md:h-full palm-sway-slow" style={{objectFit: 'contain', objectPosition: 'left top', maxWidth: '60%'}} />
+          <Image src="/cien-palmy1.png" alt="Palma tło" width={800} height={600} className="absolute left-0 top-0 w-auto h-screen md:h-full palm-sway-slow" style={{objectFit: 'contain', objectPosition: 'left top', maxWidth: '60%'}} />
         </div>
         {/* LEWA KOLUMNA */}
         <section className="flex-1 flex flex-col justify-center items-start max-w-xl mt-12 md:pr-12 md:-mt-30 z-1">
@@ -67,7 +66,7 @@ export default function Home() {
             Zamknęliśmy w puszce to, co najlepsze w młodym kokosie – jego czystość, lekkość i naturalną siłę.
           </p>
           <p className="text-[#115E2B] font-semibold text-lg mb-8">Jeden łyk. I jesteś tam.</p>
-          <div className="bg-[#115E2B] text-white font-bold rounded-[8px] w-[210px] h-[60px] flex items-center justify-center text-[14px] shadow-lg transition-all pl-2 cursor-not-allowed opacity-50">
+          <div className="bg-[#115E2B] hover:bg-[#0d4a21] text-white font-bold rounded-[8px] w-[210px] h-[60px] flex items-center justify-center text-[14px] shadow-lg transition-all pl-2 cursor-not-allowed">
             Spróbuj YOUNG COCO
             <span className="ml-3 inline-block align-middle w-[18px] h-[18px] rotate-90">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -127,7 +126,7 @@ export default function Home() {
       {/* NOWA SEKCJA: DLACZEGO YOUNG COCO? */}
       <section ref={whySection.ref} className={`relative w-full py-42 md:py-24 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24 ${whySection.animClass}`}>
         {/* Dekoracja palma po prawej */}
-        <img src="/cien-palmy2.png" alt="Palma dekoracja" className="hidden md:block pointer-events-none select-none absolute right-0 top-0 h-full w-auto z-10 palm-sway-right" style={{maxHeight: '90%', objectFit: 'contain', maxWidth: '50%'}} />
+        <Image src="/cien-palmy2.png" alt="Palma dekoracja" width={600} height={800} className="hidden md:block pointer-events-none select-none absolute right-0 top-0 h-full w-auto z-10 palm-sway-right" style={{maxHeight: '90%', objectFit: 'contain', maxWidth: '50%'}} />
         {/* Lewa kolumna: tekst i lista */}
         <div className="flex-1 max-w-xl">
           <h2 className="text-2xl md:text-2xl font-bold mb-6 text-[#131313]">Czysty kokos. Nic więcej.</h2>
@@ -165,46 +164,46 @@ export default function Home() {
             {/* Zaleta 1 */}
             <div className="flex flex-col items-center max-w-xs">
               <div className="relative w-28 h-28 flex items-center justify-center mb-4">
-                <img src="/plate.png" alt="" className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
-                <img src="/taste.png" alt="Autentyczny smak" className="relative w-24 h-24 object-contain translate-y-6" />
+                <Image src="/plate.png" alt="" width={96} height={96} className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
+                <Image src="/taste.png" alt="Autentyczny smak" width={96} height={96} className="relative w-24 h-24 object-contain translate-y-6" />
               </div>
               <p className="text-[#131313] text-base md:text-lg font-semibold text-center mt-2">Autentyczny, świeży smak</p>
             </div>
             {/* Zaleta 2 */}
             <div className="flex flex-col items-center max-w-xs">
               <div className="relative w-28 h-28 flex items-center justify-center mb-4">
-                <img src="/plate.png" alt="" className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
-                <img src="/no-sugar.png" alt="Alternatywa dla słodzonych" className="relative w-24 h-24 object-contain translate-y-6" />
+                <Image src="/plate.png" alt="" width={96} height={96} className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
+                <Image src="/no-sugar.png" alt="Alternatywa dla słodzonych" width={96} height={96} className="relative w-24 h-24 object-contain translate-y-6" />
               </div>
               <p className="text-[#131313] text-base md:text-lg font-semibold text-center mt-2">Idealna alternatywa dla sztucznie dosładzanych napojów.</p>
             </div>
             {/* Zaleta 3 */}
             <div className="flex flex-col items-center max-w-xs">
               <div className="relative w-28 h-28 flex items-center justify-center mb-4">
-                <img src="/plate.png" alt="" className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
-                <img src="/coconut-icon.png" alt="Najwyższa jakość" className="relative w-24 h-24 object-contain translate-y-6" />
+                <Image src="/plate.png" alt="" width={96} height={96} className="absolute left-1/2 top-1/2 w-24 h-24 object-contain -translate-x-1/2 -translate-y-1/2" />
+                <Image src="/coconut-icon.png" alt="Najwyższa jakość" width={96} height={96} className="relative w-24 h-24 object-contain translate-y-6" />
               </div>
               <p className="text-[#131313] text-base md:text-lg font-semibold text-center mt-2">Wyjątkowe połączenie najwyższej jakości wody z młodych kokosów</p>
             </div>
           </div>
         </div>
         {/* Dekoracje tła */}
-        <img src="/coconut-piece2.png" alt="dekoracja" width={254} height={254} className="absolute left-0 bottom-10 w-24 opacity-80 coconut-piece" />
-        <img src="/coconut-piece1.png" alt="dekoracja" width={254} height={254} className="absolute right-0 top-10 w-24 opacity-80 coconut-piece" />
+        <Image src="/coconut-piece2.png" alt="dekoracja" width={254} height={254} className="absolute left-0 bottom-10 w-24 opacity-80 coconut-piece" />
+        <Image src="/coconut-piece1.png" alt="dekoracja" width={254} height={254} className="absolute right-0 top-10 w-24 opacity-80 coconut-piece" />
       </section>
 
 
       {/* SEKCJA: Wariant produktu z puszką i zaletami */}
       <section ref={canSection.ref} className={`relative w-full bg-[#FAFAF6] pt-32 pb-20 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 overflow-visible ${canSection.animClass}`} style={{overflow: 'visible'}}>
         {/* Dekoracje tła */}
-        <img src="/coconut-piece3.png" alt="kokos dekoracja" className="absolute left-1/4 -top-10 w-20 md:w-28 z-10 coconut-piece" style={{zIndex:2}} />
-        <img src="/duzy-zielony-kokos.png" alt="duży kokos" className="hidden md:block absolute right-0 -top-32 w-80 lg:w-96 z-30 coconut-piece" style={{zIndex:30}} />
-        <img src="/coconut-piece4.png" alt="kokos dekoracja" className="absolute right-10 bottom-0 w-20 md:w-28 z-10 coconut-piece" style={{zIndex:2}} />
+        <Image src="/coconut-piece3.png" alt="kokos dekoracja" width={112} height={112} className="absolute left-1/4 -top-10 w-20 md:w-28 z-10 coconut-piece" style={{zIndex:2}} />
+        <Image src="/duzy-zielony-kokos.png" alt="duży kokos" width={384} height={384} className="hidden md:block absolute right-0 -top-32 w-80 lg:w-96 z-30 coconut-piece" style={{zIndex:30}} />
+        <Image src="/coconut-piece4.png" alt="kokos dekoracja" width={112} height={112} className="absolute right-10 bottom-0 w-20 md:w-28 z-10 coconut-piece" style={{zIndex:2}} />
 
         {/* Lewa kolumna: puszka na tle zielonego koła */}
         <div className="relative flex-1 flex items-center justify-center min-w-[320px] max-w-md">
           <div className="absolute left-[-400px] lg:left-[-500px] xl:left-[-600px] top-2/3 -translate-y-1/2 w-[800px] lg:w-[900px] xl:w-[1000px] h-[340px] bg-[#A1C63A] rounded-[130px] -z-10" style={{zIndex:0}}></div>
-          <img ref={canVariant.ref} src="/can.png" alt="Puszka Young Coco" className={`w-64 md:w-80 z-10 drop-shadow-2xl ${canVariant.animClass}`} style={{zIndex:2}} />
+          <Image ref={canVariant.ref} src="/can.png" alt="Puszka Young Coco" width={320} height={440} className={`w-64 md:w-80 z-10 drop-shadow-2xl ${canVariant.animClass}`} style={{zIndex:2}} />
           {/* Strzałka dekoracyjna */}
           <div className="z-40">
             <ArrowAnimated />
@@ -270,7 +269,7 @@ export default function Home() {
         </div>
         {/* Prawa kolumna: zdjęcie */}
         <div className="flex-1 flex items-center justify-end w-full max-w-2xl">
-          <img src="/underwater.jpg" alt="Zanieczyszczona woda" className="w-[500px] max-w-none h-[400px] object-cover rounded-lg" />
+          <Image src="/underwater.jpg" alt="Zanieczyszczona woda" width={500} height={400} className="w-[500px] max-w-none h-[400px] object-cover rounded-lg" />
         </div>
       </section>
 
@@ -278,7 +277,7 @@ export default function Home() {
       <section className="w-full flex flex-col md:flex-row items-center justify-between py-16 md:py-20 px-4 md:px-24 lg:px-32 xl:px-48 2xl:px-64 gap-8 md:gap-16">
         {/* Lewa kolumna: zdjęcie */}
         <div className="flex-1 flex items-center justify-start w-full max-w-2xl">
-          <img src="/earth-hands.jpg" alt="Ręce trzymające globus z liśćmi" className="w-[500px] max-w-none h-[400px] object-cover rounded-lg" />
+          <Image src="/earth-hands.jpg" alt="Ręce trzymające globus z liśćmi" width={500} height={400} className="w-[500px] max-w-none h-[400px] object-cover rounded-lg" />
         </div>
         {/* Prawa kolumna: tekst */}
         <div className="flex-1 max-w-lg">
@@ -300,45 +299,45 @@ export default function Home() {
           <div className="bg-white border border-gray-200 rounded-xl w-full max-w-xs shadow-sm flex flex-col">
             <div className="flex items-center justify-between px-4 pt-4 pb-2">
               <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Young Coco logo" className="w-7 h-7 object-contain" />
+                <Image src="/logo.png" alt="Young Coco logo" width={28} height={28} className="w-7 h-7 object-contain" />
                 <span className="font-semibold text-[#131313] text-lg">Young Coco</span>
               </div>
               <span className="text-gray-400 text-2xl font-bold">&#8230;</span>
             </div>
-            <img src="/insta1.jpg" alt="Post 1" className="w-full aspect-square object-cover rounded-b-xl" />
+            <Image src="/insta1.jpg" alt="Post 1" width={320} height={320} className="w-full aspect-square object-cover rounded-b-xl" />
           </div>
           {/* Post 2 */}
           <div className="bg-white border border-gray-200 rounded-xl w-full max-w-xs shadow-sm flex flex-col">
             <div className="flex items-center justify-between px-4 pt-4 pb-2">
               <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Young Coco logo" className="w-7 h-7 object-contain" />
+                <Image src="/logo.png" alt="Young Coco logo" width={28} height={28} className="w-7 h-7 object-contain" />
                 <span className="font-semibold text-[#131313] text-lg">Young Coco</span>
               </div>
               <span className="text-gray-400 text-2xl font-bold">&#8230;</span>
             </div>
-            <img src="/insta2.jpg" alt="Post 2" className="w-full aspect-square object-cover rounded-b-xl" />
+            <Image src="/insta2.jpg" alt="Post 2" width={320} height={320} className="w-full aspect-square object-cover rounded-b-xl" />
           </div>
           {/* Post 3 */}
           <div className="bg-white border border-gray-200 rounded-xl w-full max-w-xs shadow-sm flex flex-col">
             <div className="flex items-center justify-between px-4 pt-4 pb-2">
               <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Young Coco logo" className="w-7 h-7 object-contain" />
+                <Image src="/logo.png" alt="Young Coco logo" width={28} height={28} className="w-7 h-7 object-contain" />
                 <span className="font-semibold text-[#131313] text-lg">Young Coco</span>
               </div>
               <span className="text-gray-400 text-2xl font-bold">&#8230;</span>
             </div>
-            <img src="/insta3.jpg" alt="Post 3" className="w-full aspect-square object-cover rounded-b-xl" />
+            <Image src="/insta3.jpg" alt="Post 3" width={320} height={320} className="w-full aspect-square object-cover rounded-b-xl" />
           </div>
           {/* Post 4 */}
           <div className="bg-white border border-gray-200 rounded-xl w-full max-w-xs shadow-sm flex flex-col">
             <div className="flex items-center justify-between px-4 pt-4 pb-2">
               <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Young Coco logo" className="w-7 h-7 object-contain" />
+                <Image src="/logo.png" alt="Young Coco logo" width={28} height={28} className="w-7 h-7 object-contain" />
                 <span className="font-semibold text-[#131313] text-lg">Young Coco</span>
               </div>
               <span className="text-gray-400 text-2xl font-bold">&#8230;</span>
             </div>
-            <img src="/insta4.jpg" alt="Post 4" className="w-full aspect-square object-cover rounded-b-xl" />
+            <Image src="/insta4.jpg" alt="Post 4" width={320} height={320} className="w-full aspect-square object-cover rounded-b-xl" />
           </div>
         </div>
       </section>

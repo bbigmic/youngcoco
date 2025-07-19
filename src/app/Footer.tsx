@@ -21,13 +21,13 @@ export default function Footer() {
           </div>
           <div className="flex gap-6 mt-2 text-[#A1C63A]">
             {/* Instagram */}
-            <a href="https://www.instagram.com/youngcocowater/" aria-label="Instagram" className="hover:opacity-80 transition"><img src="/social-icons/instagram.svg" alt="Instagram" width={28} height={28} /></a>
+            <a href="https://www.instagram.com/youngcocowater/" aria-label="Instagram" className="hover:opacity-80 transition"><Image src="/social-icons/instagram.svg" alt="Instagram" width={28} height={28} /></a>
             {/* Facebook */}
-            <a href="#" aria-label="Facebook" className="hover:opacity-80 transition"><img src="/social-icons/facebook.svg" alt="Facebook" width={28} height={28} /></a>
+            <a href="#" aria-label="Facebook" className="hover:opacity-80 transition"><Image src="/social-icons/facebook.svg" alt="Facebook" width={28} height={28} /></a>
             {/* YouTube */}
-            <a href="#" aria-label="YouTube" className="hover:opacity-80 transition"><img src="/social-icons/youtube.svg" alt="YouTube" width={28} height={28} /></a>
+            <a href="#" aria-label="YouTube" className="hover:opacity-80 transition"><Image src="/social-icons/youtube.svg" alt="YouTube" width={28} height={28} /></a>
             {/* TikTok */}
-            <a href="#" aria-label="TikTok" className="hover:opacity-80 transition"><img src="/social-icons/tiktok.svg" alt="TikTok" width={28} height={28} /></a>
+            <a href="#" aria-label="TikTok" className="hover:opacity-80 transition"><Image src="/social-icons/tiktok.svg" alt="TikTok" width={28} height={28} /></a>
           </div>
         </div>
       </div>

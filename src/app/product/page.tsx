@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useCart } from "../CartContext";
 
 const product = {
   name: "Young COCO woda kokosowa",
@@ -45,8 +43,6 @@ export default function ProductPage() {
   const [selectedImg, setSelectedImg] = useState(0);
   const [qty, setQty] = useState(product.variants[0]);
   const [showDetails, setShowDetails] = useState(false);
-  const router = useRouter();
-  const { addToCart } = useCart();
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col items-center justify-start pt-32 sm:pt-36 md:pt-40 pb-12 md:pb-20">
@@ -84,7 +80,7 @@ export default function ProductPage() {
                 ))}
               </select>
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 flex items-center">
-                <img src="/icons-svg/down-arrow.svg" alt="strzałka" className="w-5 h-5" />
+                <Image src="/icons-svg/down-arrow.svg" alt="strzałka" width={20} height={20} className="w-5 h-5" />
               </span>
             </div>
             {/* <button
@@ -169,7 +165,7 @@ export default function ProductPage() {
           {/* Info o dostawie */}
           <div className="flex flex-col sm:flex-row gap-4 md:gap-8 text-[#23611C] text-xs md:text-sm items-start sm:items-center justify-between w-full mt-2">
             <div className="flex items-center gap-2">
-              <img src="/icons-svg/local_shipping.svg" alt="dostawa" className="w-6 h-6 md:w-7 md:h-7" style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(86deg) brightness(94%) contrast(119%)' }} />
+              <Image src="/icons-svg/local_shipping.svg" alt="dostawa" width={28} height={28} className="w-6 h-6 md:w-7 md:h-7" style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(86deg) brightness(94%) contrast(119%)' }} />
               <span className="text-xs md:text-sm">Darmowa dostawa przy zakupie powyżej 150 zł brutto</span>
             </div>
           </div>

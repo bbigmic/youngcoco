@@ -105,7 +105,7 @@ export default function Navbar() {
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [pathname, isContactSectionVisible]);
+  }, [pathname, isContactSectionVisible, updateUnderlinePosition]);
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 md:px-10 py-6 transition-colors duration-300 ${scrolled ? 'bg-white/80 backdrop-blur shadow' : 'bg-transparent'}`}>

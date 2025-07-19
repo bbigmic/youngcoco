@@ -93,7 +93,7 @@ function OrderConfirmationContent() {
     } else if (!item || !customer) {
       console.log('Missing data - item:', !!item, 'customer:', !!customer);
     }
-  }, [sessionId, item, customer]);
+  }, [sessionId, item, customer, orderSaved, checkExistingOrder, saveOrderToDatabase]);
 
   async function saveOrderToDatabase() {
     if (!item || !customer) {

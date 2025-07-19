@@ -105,7 +105,7 @@ export default function AdminPage() {
       loadOrders();
       loadStats();
     }
-  }, [currentPage, currentStatus, isAuthenticated]);
+  }, [currentPage, currentStatus, isAuthenticated, loadOrders, loadStats]);
 
   // Ustaw flagę załadowania tylko raz po pierwszym załadowaniu danych
   useEffect(() => {
@@ -113,7 +113,7 @@ export default function AdminPage() {
       // Ustaw flagę załadowania po krótkim opóźnieniu dla animacji
       setTimeout(() => setIsLoaded(true), 100);
     }
-  }, [isAuthenticated, stats, isLoaded]);
+  }, [isAuthenticated, stats, isLoaded, isAuthenticated]);
 
   // Resetuj animacje gdy zmienia się status
   useEffect(() => {
