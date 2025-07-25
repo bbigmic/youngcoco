@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -69,7 +69,7 @@ export default function Navbar() {
   }, [menuOpen]);
 
   // Funkcja do obliczania pozycji i szerokości podkreślenia
-  const updateUnderlinePosition = () => {
+  const updateUnderlinePosition = useCallback(() => {
     let targetRef: React.RefObject<HTMLLIElement | null> | null = null;
     
     if (pathname === "/" && isContactSectionVisible) {
@@ -93,7 +93,7 @@ export default function Navbar() {
         width: `${width}px`
       });
     }
-  };
+  }, [pathname, isContactSectionVisible]);
 
   // Aktualizuj pozycję podkreślenia przy zmianie ścieżki lub rozmiaru okna
   useEffect(() => {

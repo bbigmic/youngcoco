@@ -85,7 +85,7 @@ export default function AdminPage() {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const res = await fetch("/api/admin/check-auth");
+        const res = await fetch("/api/admin/check-auth", { credentials: "include" });
         if (res.ok) {
           setIsAuthenticated(true);
         } else {
@@ -105,7 +105,7 @@ export default function AdminPage() {
       loadOrders();
       loadStats();
     }
-  }, [currentPage, currentStatus, isAuthenticated, loadOrders, loadStats]);
+  }, [currentPage, currentStatus, isAuthenticated]);
 
   // Ustaw flagę załadowania tylko raz po pierwszym załadowaniu danych
   useEffect(() => {
@@ -178,7 +178,7 @@ export default function AdminPage() {
   async function loadStats() {
     setStatsLoading(true);
     try {
-      const res = await fetch("/api/stats");
+      const res = await fetch("/api/stats", { credentials: "include" });
       const data = await res.json();
       setStats(data);
     } catch {
@@ -192,14 +192,14 @@ export default function AdminPage() {
     setLoading(true);
     try {
       const limit = 10; // Limit 10 zamówień na stronę
-      const res = await fetch(`/api/orders?page=${currentPage}&limit=${limit}&status=${currentStatus}`);
+      const res = await fetch(`/api/orders?page=${currentPage}&limit=${limit}&status=${currentStatus}`, { credentials: "include" });
       const data = await res.json();
       setOrders(data.orders);
       setPagination(data.pagination);
       
       // Dla historii pobierz wszystkie zamówienia do wyszukiwania
       if (currentStatus === "zrealizowane") {
-        const allRes = await fetch(`/api/orders?status=zrealizowane&limit=1000`);
+        const allRes = await fetch(`/api/orders?status=zrealizowane&limit=1000`, { credentials: "include" });
         const allData = await allRes.json();
         setAllOrders(allData.orders);
         setFilteredOrders(allData.orders);
@@ -221,6 +221,7 @@ export default function AdminPage() {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status }),
+        credentials: "include"
       });
       
       if (res.ok) {
@@ -239,7 +240,7 @@ export default function AdminPage() {
 
   async function handleLogout() {
     try {
-      await fetch("/api/admin/logout", { method: "POST" });
+      await fetch("/api/admin/logout", { method: "POST", credentials: "include" });
       router.push("/admin/login");
     } catch {
       console.error("Błąd wylogowania");
